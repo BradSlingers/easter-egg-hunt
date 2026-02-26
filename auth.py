@@ -1,4 +1,8 @@
 from fastapi import APIRouter
+from typing import Annotated
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi import Depends
+from fastapi import HTTPException
 from pydantic import BaseModel
 import bcrypt
 from database import engine
@@ -12,6 +16,15 @@ class User(BaseModel):
     password : str
 
 router = APIRouter()
+
+security = HTTPBearer()
+
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    # Validate token here
+    try:
+        return decode_token(credentials.credentials)
+    except:
+        raise HTTPException(status_code=403, detail="Invalid token")
 
 def create_token(user_email):
     token = jwt.encode({'sub': user_email}, SECRET_KEY, algorithm='HS256')
@@ -48,3 +61,7 @@ async def login(user: User):
         if bcrypt.checkpw(pword,ph.encode('utf-8')):
             return create_token(mail)
     return {"message":"incorrect email or password"} 
+
+@router.get("/auth/me")
+def me(user_email: str = Depends(get_current_user)):
+    return {"email": user_email}
