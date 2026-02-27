@@ -2,9 +2,11 @@ from fastapi import FastAPI
 from sqlalchemy import text
 from database import engine
 from auth import router as auth_router
+from hunt import router as hunt_router
 
 app = FastAPI()
 app.include_router(auth_router)
+app.include_router(hunt_router)
 
 @app.get("/")
 def home():
