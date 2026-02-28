@@ -5,7 +5,25 @@ from sqlalchemy import text
 from database import engine
 
 with engine.connect() as conn:
-    conn.execute(text("CREATE TABLE if not exists users(id integer primary key, email text unique, passhash text, created_at integer)"))
-    conn.execute(text("CREATE TABLE if not exists eggs(egg_id integer primary key, egg_hint text, egg_lat float, egg_lon float, egg_order integer, is_golden integer)"))
-    conn.execute(text("CREATE TABLE if not exists user_progress(id integer primary key, user_id integer , egg_id integer , found_at integer,foreign key (egg_id) references eggs(egg_id), foreign key(user_id) references users(id))"))
+    conn.execute(text("""CREATE TABLE if not exists users(
+                      ID integer primary key,
+                      EMAIL text unique,
+                      PASSHASH text,
+                      created_at integer)"""))
+
+    conn.execute(text("""CREATE TABLE if not exists eggs(
+                      EGG_ID integer primary key,
+                      EGG_HINT text,
+                      EGG_LAT float, 
+                      EGG_LON float, 
+                      EGG_ORDER integer,
+                      IS_GOLDEN integer)"""))
+
+    conn.execute(text("""CREATE TABLE if not exists user_progress(
+                      ID integer primary key,
+                      USER_ID integer ,
+                      EGG_ID integer ,
+                      FOUND_AT integer,
+                      FOREIGN key (EGG_ID) REFERENCES eggs(EGG_ID),
+                      FOREIGN key(USER_ID) REFERENCES users(ID))"""))
     conn.commit()

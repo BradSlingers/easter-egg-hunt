@@ -10,8 +10,8 @@ with engine.connect() as conn:
     conn.commit()
 
 with engine.connect() as conn:
-    mail = "bsling@gmail.com"
-    password = "MyPassword1"
+    mail = "string.com"
+    password = "string"
     hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
     conn.execute(text("insert into users(email, passhash, created_at) values (:email, :passhash, :created_at)"), {"email":mail,"passhash":hashed,"created_at":int(time.time())},)
     conn.commit()
