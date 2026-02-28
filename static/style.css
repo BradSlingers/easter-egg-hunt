@@ -1,0 +1,39 @@
+html {
+    background-image: url("/static/images/RemaxEggHunt3.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    font-family: sans-serif;
+}
+p {
+  color: red;
+}
+h1 {
+  font-size: 30px;
+  text-align: center;
+  margin: 0;
+  padding: 20px 0;
+  color: red;
+  text-shadow: 3px 3px 1px black;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+#signup-screen,
+#login-screen,
+#hunt-screen,
+#win-screen {
+    display: none;
+}

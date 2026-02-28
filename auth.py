@@ -34,9 +34,9 @@ def decode_token(token):
     mail = jwt.decode(token, SECRET_KEY,algorithms=['HS256'])
     return mail['sub']
 
-@router.get("/")
-def home():
-    return {"message":"Hey, whats up?"}
+# @router.get("/")
+# def home():
+#     return {"message":"Hey, whats up?"}
 
 @router.post("/auth/signup")
 async def sign_up(user: User):
