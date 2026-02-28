@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from math import radians, cos, sin, asin, sqrt
 from typing import Annotated
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi import Depends
@@ -17,6 +18,16 @@ class Coordinates(BaseModel):
     longitude : float
 
 router = APIRouter()
+
+# Calculate great circle distance in km
+def haversine(lon1, lat1, lon2, lat2):
+    # Convert decimal degrees to radians
+    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+    
+    # Haversine formula
+    dlon, dlat = lon2 - lon1, lat2 - lat1
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    return (2 * asin(sqrt(a)) * 6371) * 1000# 6371 km radius
 
 @router.get("/hunt/next-hint")
 def get_hint(user_email: str = Depends(get_current_user)):
@@ -49,7 +60,7 @@ def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_
             return {"message":"no id"}
         user_id = row[0]
         cursor_with_hint = conn.execute(text("""
-        select egg_lat, egg_lon, egg_id 
+        select egg_lat, egg_lon, egg_id,is_golden
         from eggs
         where egg_id not in (select egg_id
         from user_progress
@@ -63,18 +74,22 @@ def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_
         egg_lat = row_with_hint[0]
         egg_lon = row_with_hint[1]
         egg_id = row_with_hint[2]
+        egg_golden = row_with_hint[3]
         user_lat = user_coord.latitude
         user_lon = user_coord.longitude
         #Haversine to go here
-        if egg_lat == user_lat and egg_lon == user_lon:
+        haversine_dist = haversine(egg_lat,egg_lon,user_lat,user_lon)
+        if haversine_dist <= 20:
             conn.execute(text("""
                               insert into user_progress(user_id,egg_id,found_at) 
                               values(:user_id,:egg_id,:found_at)
                               """),
                               {"user_id":user_id,"egg_id":egg_id,"found_at":int(time.time())})        
             conn.commit()
-            return {"message":"You have found an egg!"}
-        return {"message":"No egg found. Try again"}
+            if egg_golden == 1:
+                return {"message":"You have found the GOLDEN EGG!!!"}
+            return {"message":f"You have found an egg! haversine = {haversine_dist} .egg lat = {egg_lat},  egg lon = {egg_lon}"}
+        return {"message":f"No egg found. Try again. haversine = {haversine_dist} egg lat = {egg_lat},  egg lon = {egg_lon}"}
 
 @router.get("/hunt/progress")
 def get_progress(user_email: str = Depends(get_current_user)):
@@ -103,7 +118,7 @@ def get_progress(user_email: str = Depends(get_current_user)):
         for r in row_actual:
             found_egg_list.append(r[0])
         number_of_eggs = len(row_actual)
-        return {"message":f"Found {number_of_eggs}/6 eggs. The eggs are {found_egg_list}"}
+        return {"message":f"Found {number_of_eggs}/3 eggs. The eggs are {found_egg_list}"}
 
         
     
