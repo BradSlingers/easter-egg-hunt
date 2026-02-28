@@ -48,7 +48,7 @@ def get_hint(user_email: str = Depends(get_current_user)):
         """),{"id":user_id})
         row_with_hint = cursor_with_hint.fetchone()
         if row_with_hint is None:
-            return {"message":"No more hints"}
+            return {"message":"There are no more hints. You have found all the Eggs!"}
         return {"hint":row_with_hint[0],"egg":row_with_hint[1]}
         
 @router.post("/hunt/check-location")
@@ -119,6 +119,8 @@ def get_progress(user_email: str = Depends(get_current_user)):
             found_egg_list.append(r[0])
         number_of_eggs = len(row_actual)
         total = conn.execute(text("SELECT COUNT(*) FROM eggs")).fetchone()[0]
+        if number_of_eggs == total:
+            return {"message":"You have found all the Eggs!"}
         return {"message":f"Found {number_of_eggs}/{total} eggs. The eggs are {found_egg_list}"}
 
         
