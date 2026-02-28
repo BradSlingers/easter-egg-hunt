@@ -208,3 +208,6 @@ __marimo__/
 
 #database
 *.db
+
+#images
+static/images
