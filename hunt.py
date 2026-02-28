@@ -57,7 +57,7 @@ def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_
         find_user_id = conn.execute(text("select id from users where email = :email "),{"email":user_email})
         row = find_user_id.fetchone()
         if row is None:
-            return {"message":"no id"}
+            raise HTTPException(status_code=500, detail="User not found in database")
         user_id = row[0]
         cursor_with_hint = conn.execute(text("""
         select egg_lat, egg_lon, egg_id,is_golden
@@ -70,7 +70,7 @@ def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_
         """),{"id":user_id})
         row_with_hint = cursor_with_hint.fetchone()
         if row_with_hint is None:
-            return {"message":"No lat,lon and id"}
+            return {"message":"Hunt Complete! You've found all the Eggs!"}
         egg_lat = row_with_hint[0]
         egg_lon = row_with_hint[1]
         egg_id = row_with_hint[2]
@@ -102,7 +102,7 @@ def get_progress(user_email: str = Depends(get_current_user)):
                                          """),{"email":user_email})
         row = find_user_id.fetchone()
         if row is None:
-            return {"message":"no id"}
+            raise HTTPException(status_code=500, detail="User not found in database")
         user_id = row[0]
 
         row_cursor = conn.execute(text("""
@@ -118,7 +118,8 @@ def get_progress(user_email: str = Depends(get_current_user)):
         for r in row_actual:
             found_egg_list.append(r[0])
         number_of_eggs = len(row_actual)
-        return {"message":f"Found {number_of_eggs}/3 eggs. The eggs are {found_egg_list}"}
+        total = conn.execute(text("SELECT COUNT(*) FROM eggs")).fetchone()[0]
+        return {"message":f"Found {number_of_eggs}/{total} eggs. The eggs are {found_egg_list}"}
 
         
     

@@ -43,7 +43,10 @@ async def sign_up(user: User):
     hashed = bcrypt.hashpw(user.password.encode(), bcrypt.gensalt()).decode()
     mail = user.email
     with engine.connect() as conn:
-        conn.execute(text("insert into users(email, passhash, created_at) values (:email, :passhash, :created_at)"), {"email":mail,"passhash":hashed,"created_at":int(time.time())})
+        try:
+            conn.execute(text("insert into users(email, passhash, created_at) values (:email, :passhash, :created_at)"), {"email":mail,"passhash":hashed,"created_at":int(time.time())})
+        except:
+            raise HTTPException(status_code=400, detail="Email already registered")
         conn.commit()
     return create_token(mail) 
 
@@ -56,12 +59,11 @@ async def login(user: User):
         check_passhash = conn.execute(text("select passhash from users where email = :email"),{"email":mail})
         row = check_passhash.fetchone()
         if row is None:
-            return {"message":"incorrect email or password"}
+            raise HTTPException(status_code=401, detail="Incorrect email or password")
         ph = row[0]
-        if bcrypt.checkpw(pword,ph.encode('utf-8')):
-            return create_token(mail)
-    return {"message":"incorrect email or password"} 
-
-@router.get("/auth/me")
-def me(user_email: str = Depends(get_current_user)):
-    return {"email": user_email}
+        if not bcrypt.checkpw(pword, ph.encode('utf-8')):
+            raise HTTPException(status_code=401, detail="Incorrect email or password")
+        return create_token(mail)
+# @router.get("/auth/me")
+# def me(user_email: str = Depends(get_current_user)):
+#     return {"email": user_email}
