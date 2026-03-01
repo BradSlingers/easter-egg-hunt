@@ -34,6 +34,11 @@ img {
 #signup-screen,
 #login-screen,
 #hunt-screen,
-#win-screen {
+#win-screen,
+#instruction-screen,
+#error-screen,
+#error-email,
+#error-password
+ {
     display: none;
 }
