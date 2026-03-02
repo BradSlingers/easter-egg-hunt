@@ -64,6 +64,8 @@ document.getElementById("login-back").addEventListener("click", function() {
 document.getElementById("signup-back").addEventListener("click", function() {
     // hide signup, show welcome
     document.getElementById("signup-screen").style.display = "none"
+    document.getElementById("error-email").style.display = "none"
+    document.getElementById("error-password").style.display = "none"
     document.getElementById("welcome-screen").style.display = "block"
 })
 
@@ -76,5 +78,6 @@ document.getElementById("hunt-back").addEventListener("click", function() {
 document.getElementById("error-back").addEventListener("click", function() {
     // hide hunt, show welcome
     document.getElementById("error-email").style.display = "none"
+    document.getElementById("error-password").style.display = "none"
     document.getElementById("signup-screen").style.display = "block"
 })
