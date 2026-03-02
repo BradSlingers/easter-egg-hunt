@@ -13,30 +13,32 @@ document.getElementById("submit-signup").addEventListener("click", function() {
 
     if (sign_up_email == verify_email) {
         if (sign_up_password == sign_verify) {
+            let email = sign_up_email;
+            let password = sign_up_password;
             fetch("/auth/signup", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({email: email, password: password})
             })
-            .then(response => response.json())
+            .then(get_token)
             .then(data => {
             // data is what your API returned
+            sessionStorage.setItem("token", data);
+            document.getElementById("signup-screen").style.display = "none";
+            document.getElementById("hunt-screen").style.display = "block";
 
-            }) 
+            }).catch(err => {
+                alert(err.detail)
+                }) 
 
         }
         else {
-
+                document.getElementById("error-password").style.display  = "block"
         }
     }
     else {
         document.getElementById("error-email").style.display = "block"
     }
-
-
-    //     // hide signup, show hunt-screen
-    // document.getElementById("signup-screen").style.display = "none"
-    // document.getElementById("hunt-screen").style.display = "block"
 })
 
 
@@ -48,9 +50,25 @@ document.getElementById("goto-login").addEventListener("click", function() {
 })
 
 document.getElementById("submit-login").addEventListener("click", function() {
-    // hide login, show hunt
-    document.getElementById("login-screen").style.display = "none"
-    document.getElementById("hunt-screen").style.display = "block"
+            let email = document.getElementById("login-email").value;
+            let password = document.getElementById("login-password").value;
+            fetch("/auth/login", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({email: email, password: password})
+            })
+            .then(get_token)
+            .then(data => {
+            // data is what your API returned
+            sessionStorage.setItem("token", data);
+            // hide login, show hunt
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("hunt-screen").style.display = "block";
+
+            }).catch(err => {
+                alert(err.detail)
+                }) 
+
 })
 
 
@@ -75,9 +93,21 @@ document.getElementById("hunt-back").addEventListener("click", function() {
     document.getElementById("welcome-screen").style.display = "block"
 })
 
-document.getElementById("error-back").addEventListener("click", function() {
+document.getElementById("error-email-back").addEventListener("click", function() {
     // hide hunt, show welcome
     document.getElementById("error-email").style.display = "none"
     document.getElementById("error-password").style.display = "none"
     document.getElementById("signup-screen").style.display = "block"
 })
+document.getElementById("error-password-back").addEventListener("click", function() {
+    // hide hunt, show welcome
+    document.getElementById("error-email").style.display = "none"
+    document.getElementById("error-password").style.display = "none"
+    document.getElementById("signup-screen").style.display = "block"
+})
+function get_token(token_response) {
+    if (!token_response.ok) {
+        return token_response.json().then(err => { throw err });
+    }
+        return token_response.json()
+}
