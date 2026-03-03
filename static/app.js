@@ -105,9 +105,58 @@ document.getElementById("error-password-back").addEventListener("click", functio
     document.getElementById("error-password").style.display = "none"
     document.getElementById("signup-screen").style.display = "block"
 })
+//click hint button
+document.getElementById("hint-button").addEventListener("click", function() {
+            const token = sessionStorage.getItem("token");
+            fetch("/hunt/next-hint", {
+                method: "GET",
+                headers: {'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+            })
+            .then(get_res)
+            .then(data => {
+            // data is what your API returned
+            const the_hint_element = document.getElementById("the-hint");
+            the_hint_element.textContent = data.message
+            console.log(data.message)
+
+            }).catch(err => {
+                alert(err.detail)
+                }) 
+
+})
+
+document.getElementById("progress-button").addEventListener("click", function() {
+            const token = sessionStorage.getItem("token");
+            fetch("/hunt/progress", {
+                method: "GET",
+                headers: {'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+            })
+            .then(get_res)
+            .then(data => {
+            // data is what your API returned
+            const the_progress_element = document.getElementById("the-progress");
+            the_progress_element.textContent = data.message
+            console.log(data.message)
+
+            }).catch(err => {
+                alert(err.detail)
+                }) 
+
+})
+
 function get_token(token_response) {
     if (!token_response.ok) {
         return token_response.json().then(err => { throw err });
     }
         return token_response.json()
+}
+function get_res(response) {
+    if (!response.ok) {
+        return response.json().then(err => { throw err });
+    }
+        return response.json()
 }
