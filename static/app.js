@@ -155,6 +155,13 @@ document.getElementById("progress-button").addEventListener("click", function() 
 
 })
 
+document.getElementById("location-check").addEventListener("click", function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success,error);
+
+            }
+})
+
 function get_token(token_response) {
     if (!token_response.ok) {
         return token_response.json().then(err => { throw err });
@@ -166,4 +173,35 @@ function get_res(response) {
         return response.json().then(err => { throw err });
     }
         return response.json()
+}
+
+
+function success(pos) {
+    const token = sessionStorage.getItem("token");
+    let user_lat = pos.coords.latitude;       
+    let user_lon = pos.coords.longitude;
+    fetch("/hunt/check-location", {
+        method: "POST",
+        headers: {'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        body: JSON.stringify({"latitude": user_lat, "longitude": user_lon})
+    }).then(get_token)
+        .then(data => {
+    // data is what your API returned
+    let the_location_element = document.getElementById("the-location")
+    console.log(data.message)
+    the_location_element.textContent = data.message
+        }).catch(err => {
+            alert(err.detail)
+            }) 
+
+    console.log("Your current position is:");
+    console.log(`Latitude : ${pos.coords.latitude}`);
+    console.log(`Longitude: ${pos.coords.longitude}`);
+    console.log(`More or less ${pos.coords.accuracy} meters.`);
+}
+
+function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
 }
