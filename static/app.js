@@ -158,6 +158,9 @@ document.getElementById("progress-button").addEventListener("click", function() 
 document.getElementById("location-check").addEventListener("click", function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success,error);
+            }
+            else {
+                document.getElementById("the-location").textContent = "Your browser doesn't support GPS."
 
             }
 })
@@ -203,5 +206,6 @@ function success(pos) {
 }
 
 function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
+    // console.warn(`ERROR(${err.code}): ${err.message}`);
+    document.getElementById("the-location").textContent = "GPS permission denied. Please turn on location."
 }
