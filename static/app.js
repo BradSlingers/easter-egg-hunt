@@ -108,6 +108,7 @@ document.getElementById("error-password-back").addEventListener("click", functio
 //click hint button
 document.getElementById("hint-button").addEventListener("click", function() {
             const token = sessionStorage.getItem("token");
+            console.log(token)
             fetch("/hunt/next-hint", {
                 method: "GET",
                 headers: {'Authorization': `Bearer ${token}`,
@@ -118,8 +119,14 @@ document.getElementById("hint-button").addEventListener("click", function() {
             .then(data => {
             // data is what your API returned
             const the_hint_element = document.getElementById("the-hint");
-            the_hint_element.textContent = data.message
-            console.log(data.message)
+            if (data.message) {
+                the_hint_element.textContent = data.message
+            }
+            else {
+                the_hint_element.textContent = data.hint
+            }
+
+                        console.log(data.message)
 
             }).catch(err => {
                 alert(err.detail)
