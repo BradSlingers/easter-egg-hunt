@@ -3,6 +3,10 @@ document.getElementById("goto-signup").addEventListener("click", function() {
     // hide welcome, show signup
     document.getElementById("welcome-screen").style.display = "none"
     document.getElementById("signup-screen").style.display = "block"
+    document.getElementById("signup-email").value = ""
+    document.getElementById("verify-email").value = ""
+    document.getElementById("signup-password").value = ""
+    document.getElementById("signup-verify").value = ""
 
 })
 
@@ -27,6 +31,7 @@ document.getElementById("submit-signup").addEventListener("click", function() {
             sessionStorage.setItem("token", data);
             document.getElementById("signup-screen").style.display = "none";
             document.getElementById("hunt-screen").style.display = "block";
+            load_map()
             reset_hunt_screen()
             get_hint()
             get_progress()
@@ -151,6 +156,8 @@ function success(pos) {
     const token = sessionStorage.getItem("token");
     // let user_lat = pos.coords.latitude;       
     // let user_lon = pos.coords.longitude;
+    let user_lat = -34.069860126069145  
+    let user_lon = 18.568539443003324
     
     fetch("/hunt/check-location", {
         method: "POST",
@@ -192,8 +199,7 @@ function success(pos) {
 }
 
 function error(err) {
-    // console.warn(`ERROR(${err.code}): ${err.message}`);
-    document.getElementById("the-location").textContent = "GPS permission denied. Please turn on location."
+    document.getElementById("the-location").textContent = "GPS Error: " + err.code + " - " + err.message
 }
 
 function get_hint() {

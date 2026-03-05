@@ -34,6 +34,13 @@ with engine.connect() as conn:
     # lon3 = 18.567892691816017
     #test 
     #add your test locations here
+     
+    lat1 = -34.069860126069145  
+    lon1 = 18.568539443003324
+    lat2 = -34.069860126069145  
+    lon2 = 18.568539443003324
+    lat3 = -34.069860126069145  
+    lon3 = 18.568539443003324
     conn.execute(text("insert into eggs(egg_hint, egg_lat, egg_lon, egg_order, is_golden) values(:egg_hint, :egg_lat, :egg_lon, :egg_order, :is_golden)"), {"egg_hint":hint_1,"egg_order":1,"egg_lat":lat1,"egg_lon":lon1,"is_golden":0})
     conn.execute(text("insert into eggs(egg_hint, egg_lat, egg_lon, egg_order, is_golden) values(:egg_hint, :egg_lat, :egg_lon, :egg_order, :is_golden)"), {"egg_hint":hint_2,"egg_order":2,"egg_lat":lat2,"egg_lon":lon2,"is_golden":0})
     conn.execute(text("insert into eggs(egg_hint, egg_lat, egg_lon, egg_order, is_golden) values(:egg_hint, :egg_lat, :egg_lon, :egg_order, :is_golden)"), {"egg_hint":hint_3,"egg_order":3,"egg_lat":lat3,"egg_lon":lon3,"is_golden":1})
