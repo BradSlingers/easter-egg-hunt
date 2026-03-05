@@ -67,6 +67,7 @@ document.getElementById("submit-login").addEventListener("click", function() {
             // hide login, show hunt
             document.getElementById("login-screen").style.display = "none";
             document.getElementById("hunt-screen").style.display = "block";
+            load_map()
             reset_hunt_screen()
             get_hint()
             get_progress()
@@ -232,4 +233,15 @@ function reset_hunt_screen() {
     document.getElementById("the-progress").textContent = "";
     document.getElementById("the-hint").textContent = "";
     document.getElementById("the-location").textContent = "";
+}
+
+function load_map() {
+    let latitude = -34.07696887052403
+    let longitude = 18.558290567569447
+    zoomlevel = 13
+    var map = L.map('map').setView([latitude, longitude], zoomlevel)
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxzoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">openstreetmap</a>'
+        }).addTo(map);
 }
