@@ -123,7 +123,7 @@ document.getElementById("progress-button").addEventListener("click", function() 
 
 document.getElementById("location-check").addEventListener("click", function() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(success,error);
+                navigator.geolocation.getCurrentPosition(success,error,{timeout:10000});
             }
             else {
                 document.getElementById("the-location").textContent = "Your browser doesn't support GPS."
