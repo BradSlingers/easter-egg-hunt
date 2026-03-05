@@ -26,6 +26,9 @@ document.getElementById("submit-signup").addEventListener("click", function() {
             sessionStorage.setItem("token", data);
             document.getElementById("signup-screen").style.display = "none";
             document.getElementById("hunt-screen").style.display = "block";
+            reset_hunt_screen()
+            get_hint()
+            get_progress()
 
             }).catch(err => {
                 alert(err.detail)
@@ -64,6 +67,9 @@ document.getElementById("submit-login").addEventListener("click", function() {
             // hide login, show hunt
             document.getElementById("login-screen").style.display = "none";
             document.getElementById("hunt-screen").style.display = "block";
+            reset_hunt_screen()
+            get_hint()
+            get_progress()
 
             }).catch(err => {
                 alert(err.detail)
@@ -107,52 +113,12 @@ document.getElementById("error-password-back").addEventListener("click", functio
 })
 //click hint button
 document.getElementById("hint-button").addEventListener("click", function() {
-            const token = sessionStorage.getItem("token");
-            console.log(token)
-            fetch("/hunt/next-hint", {
-                method: "GET",
-                headers: {'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-            })
-            .then(get_res)
-            .then(data => {
-            // data is what your API returned
-            const the_hint_element = document.getElementById("the-hint");
-            if (data.message) {
-                the_hint_element.textContent = data.message
-            }
-            else {
-                the_hint_element.textContent = data.hint
-            }
-
-                        console.log(data.message)
-
-            }).catch(err => {
-                alert(err.detail)
-                }) 
+    get_hint()
 
 })
 
 document.getElementById("progress-button").addEventListener("click", function() {
-            const token = sessionStorage.getItem("token");
-            fetch("/hunt/progress", {
-                method: "GET",
-                headers: {'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-            })
-            .then(get_res)
-            .then(data => {
-            // data is what your API returned
-            const the_progress_element = document.getElementById("the-progress");
-            the_progress_element.textContent = data.message
-            console.log(data.message)
-
-            }).catch(err => {
-                alert(err.detail)
-                }) 
-
+    get_progress()
 })
 
 document.getElementById("location-check").addEventListener("click", function() {
@@ -195,6 +161,8 @@ function success(pos) {
     let the_location_element = document.getElementById("the-location")
     console.log(data.message)
     the_location_element.textContent = data.message
+    get_hint()
+    get_progress()
         }).catch(err => {
             alert(err.detail)
             }) 
@@ -208,4 +176,60 @@ function success(pos) {
 function error(err) {
     // console.warn(`ERROR(${err.code}): ${err.message}`);
     document.getElementById("the-location").textContent = "GPS permission denied. Please turn on location."
+}
+
+function get_hint() {
+
+    const token = sessionStorage.getItem("token");
+    console.log(token)
+    fetch("/hunt/next-hint", {
+        method: "GET",
+        headers: {'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+    })
+    .then(get_res)
+    .then(data => {
+    // data is what your API returned
+    const the_hint_element = document.getElementById("the-hint");
+    if (data.message) {
+        the_hint_element.textContent = data.message
+    }
+    else {
+        the_hint_element.textContent = data.hint
+    }
+
+                console.log(data.message)
+
+    }).catch(err => {
+        alert(err.detail)
+        }) 
+}
+
+function get_progress() {
+
+    const token = sessionStorage.getItem("token");
+    fetch("/hunt/progress", {
+        method: "GET",
+        headers: {'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+    })
+    .then(get_res)
+    .then(data => {
+    // data is what your API returned
+    const the_progress_element = document.getElementById("the-progress");
+    the_progress_element.textContent = data.message
+    console.log(data.message)
+
+    }).catch(err => {
+        alert(err.detail)
+        }) 
+
+}
+
+function reset_hunt_screen() {
+    document.getElementById("the-progress").textContent = "";
+    document.getElementById("the-hint").textContent = "";
+    document.getElementById("the-location").textContent = "";
 }
