@@ -1,3 +1,4 @@
+var map;
 document.getElementById("goto-signup").addEventListener("click", function() {
     // hide welcome, show signup
     document.getElementById("welcome-screen").style.display = "none"
@@ -148,8 +149,9 @@ function get_res(response) {
 
 function success(pos) {
     const token = sessionStorage.getItem("token");
-    let user_lat = pos.coords.latitude;       
-    let user_lon = pos.coords.longitude;
+    // let user_lat = pos.coords.latitude;       
+    // let user_lon = pos.coords.longitude;
+    
     fetch("/hunt/check-location", {
         method: "POST",
         headers: {'Authorization': `Bearer ${token}`,
@@ -161,9 +163,24 @@ function success(pos) {
     // data is what your API returned
     let the_location_element = document.getElementById("the-location")
     console.log(data.message)
-    the_location_element.textContent = data.message
-    get_hint()
-    get_progress()
+    if (data.found === true) {
+        if (data.golden === 1) {
+            the_location_element.textContent = data.message + " "+ data.egg_lat
+            document.getElementById("hunt-screen").style.display = "none"
+            document.getElementById("win-screen").style.display = "block"
+
+        }
+        else {
+            the_location_element.textContent = data.message + " "+ data.egg_lat
+            L.marker([data.egg_lat, data.egg_lon]).addTo(map)
+            get_hint()
+            get_progress()
+
+        }
+    }
+    else {
+        the_location_element.textContent = data.message + " "+ data.egg_lat
+    }
         }).catch(err => {
             alert(err.detail)
             }) 
@@ -239,9 +256,7 @@ function load_map() {
     let latitude = -34.07696887052403
     let longitude = 18.558290567569447
     zoomlevel = 13
-    var map = L.map('map').setView([latitude, longitude], zoomlevel)
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxzoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">openstreetmap</a>'
-        }).addTo(map);
+    map = L.map('map',{attributionControl:false}).setView([latitude, longitude], zoomlevel)
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png') 
+        .addTo(map);
 }

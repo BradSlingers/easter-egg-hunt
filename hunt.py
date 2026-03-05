@@ -71,6 +71,7 @@ def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_
         row_with_hint = cursor_with_hint.fetchone()
         if row_with_hint is None:
             return {"message":"Hunt Complete! You've found all the Eggs!"}
+        #change after test
         egg_lat = row_with_hint[0]
         egg_lon = row_with_hint[1]
         egg_id = row_with_hint[2]
@@ -87,9 +88,9 @@ def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_
                               {"user_id":user_id,"egg_id":egg_id,"found_at":int(time.time())})        
             conn.commit()
             if egg_golden == 1:
-                return {"message":"You have found the GOLDEN EGG!!!"}
-            return {"message":f"You have found an egg! haversine = {haversine_dist} .egg lat = {egg_lat},  egg lon = {egg_lon}"}
-        return {"message":f"No egg found. Try again. haversine = {haversine_dist} egg lat = {egg_lat},  egg lon = {egg_lon}"}
+                return {"message":"You have found the GOLDEN EGG!!!","found":True,"golden":1}
+            return {"message":f"You have found an egg! haversine = {haversine_dist} ","egg_lat":egg_lat,"egg_lon":egg_lon,"found":True,"golden":0}
+        return {"message":f"No egg found. Try again. haversine = {haversine_dist} ","egg_lat":egg_lat,"egg_lon":egg_lon,"found":False,"golden":0}
 
 @router.get("/hunt/progress")
 def get_progress(user_email: str = Depends(get_current_user)):
@@ -122,6 +123,3 @@ def get_progress(user_email: str = Depends(get_current_user)):
         if number_of_eggs == total:
             return {"message":"You have found all the Eggs!"}
         return {"message":f"Found {number_of_eggs}/{total} eggs. The eggs are {found_egg_list}"}
-
-        
-    
