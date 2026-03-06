@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from fastapi import APIRouter
 from typing import Annotated
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -9,8 +11,11 @@ from database import engine
 import time
 from sqlalchemy import text
 from jose import jwt
-#to be moved to env
-SECRET_KEY = "my-secret-key"
+
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+print(SECRET_KEY)
 class User(BaseModel):
     email : str
     password : str
@@ -64,6 +69,6 @@ async def login(user: User):
         if not bcrypt.checkpw(pword, ph.encode('utf-8')):
             raise HTTPException(status_code=401, detail="Incorrect email or password")
         return create_token(mail)
-# @router.get("/auth/me")
-# def me(user_email: str = Depends(get_current_user)):
-#     return {"email": user_email}
+@router.get("/auth/me")
+def me(user_email: str = Depends(get_current_user)):
+    return {"email": user_email}

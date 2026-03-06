@@ -1,4 +1,5 @@
 var map;
+check_logged_in()
 document.getElementById("goto-signup").addEventListener("click", function() {
     // hide welcome, show signup
     document.getElementById("welcome-screen").style.display = "none"
@@ -26,9 +27,9 @@ document.getElementById("submit-signup").addEventListener("click", function() {
                 body: JSON.stringify({email: email, password: password})
             })
             .then(get_token)
-            .then(data => {
+            .then(function(data) {
             // data is what your API returned
-            sessionStorage.setItem("token", data);
+            localStorage.setItem("token", data);
             document.getElementById("signup-screen").style.display = "none";
             document.getElementById("hunt-screen").style.display = "block";
             load_map()
@@ -69,7 +70,7 @@ document.getElementById("submit-login").addEventListener("click", function() {
             .then(get_token)
             .then(data => {
             // data is what your API returned
-            sessionStorage.setItem("token", data);
+            localStorage.setItem("token", data);
             // hide login, show hunt
             document.getElementById("login-screen").style.display = "none";
             document.getElementById("hunt-screen").style.display = "block";
@@ -153,7 +154,7 @@ function get_res(response) {
 
 
 function success(pos) {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     // let user_lat = pos.coords.latitude;       
     // let user_lon = pos.coords.longitude;
     let user_lat = -34.069860126069145  
@@ -204,7 +205,7 @@ function error(err) {
 
 function get_hint() {
 
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     console.log(token)
     fetch("/hunt/next-hint", {
         method: "GET",
@@ -232,7 +233,7 @@ function get_hint() {
 
 function get_progress() {
 
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     fetch("/hunt/progress", {
         method: "GET",
         headers: {'Authorization': `Bearer ${token}`,
@@ -265,4 +266,42 @@ function load_map() {
     map = L.map('map',{attributionControl:false}).setView([latitude, longitude], zoomlevel)
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png') 
         .addTo(map);
+}
+
+function check_logged_in() {
+    let token = localStorage.getItem("token")
+    if (token) {
+        fetch("/auth/me", {
+            method: "GET",
+            headers: {'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+        })
+        .then(get_res)
+        .then(data => {
+        // data is what your API returned
+        if (data.email) {
+            document.getElementById("welcome-screen").style.display = "none";
+            document.getElementById("hunt-screen").style.display = "block";
+            load_map()
+            reset_hunt_screen()
+            get_hint()
+            get_progress()
+        }
+        else {
+            document.getElementById("welcome-screen").style.display = "block";
+        }
+
+            console.log(data.email)
+
+        }).catch(err => {
+            alert(err.detail)
+            }) 
+
+        }
+    else {
+        document.getElementById("welcome-screen").style.display = "block";
+
+    }
+
 }
