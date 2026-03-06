@@ -32,6 +32,12 @@ document.getElementById("submit-signup").addEventListener("click", function() {
             localStorage.setItem("token", data);
             document.getElementById("signup-screen").style.display = "none";
             document.getElementById("hunt-screen").style.display = "block";
+            // Remove map and clean up
+            if (map != undefined) {
+                map.off();
+                map.remove();
+            }
+
             load_map()
             reset_hunt_screen()
             get_hint()
@@ -74,6 +80,10 @@ document.getElementById("submit-login").addEventListener("click", function() {
             // hide login, show hunt
             document.getElementById("login-screen").style.display = "none";
             document.getElementById("hunt-screen").style.display = "block";
+            if (map != undefined) {
+                map.off();
+                map.remove();
+            }
             load_map()
             reset_hunt_screen()
             get_hint()
@@ -103,6 +113,7 @@ document.getElementById("signup-back").addEventListener("click", function() {
 
 document.getElementById("hunt-back").addEventListener("click", function() {
     // hide hunt, show welcome
+    localStorage.removeItem("token")
     document.getElementById("hunt-screen").style.display = "none"
     document.getElementById("welcome-screen").style.display = "block"
 })
@@ -283,6 +294,10 @@ function check_logged_in() {
         if (data.email) {
             document.getElementById("welcome-screen").style.display = "none";
             document.getElementById("hunt-screen").style.display = "block";
+            if (map != undefined) {
+                map.off();
+                map.remove();
+            }
             load_map()
             reset_hunt_screen()
             get_hint()
