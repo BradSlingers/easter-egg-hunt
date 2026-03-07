@@ -13,10 +13,22 @@ html {
     background-position: center;
     background-attachment: fixed;
     min-height: 100vh;
+    overflow: hidden;
+}
+#signup-screen,
+#login-screen,
+#hunt-screen,
+#win-screen,
+#instruction-screen,
+#error-screen,
+#error-email,
+#error-password
+ {
+    display: none;
 }
 #welcome-screen {
     height: 100dvh;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     justify-content: flex-end;
     padding-bottom: 40px;
@@ -31,6 +43,22 @@ html {
     font-family: "Lobster_Regular";
     color: red;
   }
+#signup-screen {
+    height: 100dvh;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 40px;
+    position: relative;
+}
+#login-screen {
+    height: 100dvh;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 40px;
+    position: relative;
+}
  
 body {
     margin: 0;
@@ -42,30 +70,19 @@ body {
 p {
   color: red;
 }
-h1 {
+h2 {
   font-size: 30px;
   text-align: center;
   margin: 0;
   padding: 20px 0;
   color: red;
-  text-shadow: 3px 3px 1px black;
+  text-shadow: 3px 3px 1px white;
 }
 
 img {
   display: block;
   margin: 0 auto;
   max-width: 100%;
-}
-#signup-screen,
-#login-screen,
-#hunt-screen,
-#win-screen,
-#instruction-screen,
-#error-screen,
-#error-email,
-#error-password
- {
-    display: none;
 }
 #map {
     height: 300px;
@@ -82,4 +99,14 @@ button {
     width: 40%;
     margin: 10px auto;
     display: block;
+}
+input {
+    border: 2px solid #e30613;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    width: 70%;
+    margin: 8px auto;
+    display: block;
+    outline: none;
 }

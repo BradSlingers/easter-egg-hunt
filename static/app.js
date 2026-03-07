@@ -3,7 +3,7 @@ check_logged_in()
 document.getElementById("goto-signup").addEventListener("click", function() {
     // hide welcome, show signup
     document.getElementById("welcome-screen").style.display = "none"
-    document.getElementById("signup-screen").style.display = "block"
+    document.getElementById("signup-screen").style.display = "flex"
     document.getElementById("signup-email").value = ""
     document.getElementById("verify-email").value = ""
     document.getElementById("signup-password").value = ""
@@ -61,7 +61,7 @@ document.getElementById("submit-signup").addEventListener("click", function() {
 document.getElementById("goto-login").addEventListener("click", function() {
     // hide welcome, show login
     document.getElementById("welcome-screen").style.display = "none"
-    document.getElementById("login-screen").style.display = "block"
+    document.getElementById("login-screen").style.display = "flex"
     document.getElementById("login-email").value = ""
     document.getElementById("login-password").value = ""
 
@@ -124,13 +124,13 @@ document.getElementById("error-email-back").addEventListener("click", function()
     // hide hunt, show welcome
     document.getElementById("error-email").style.display = "none"
     document.getElementById("error-password").style.display = "none"
-    document.getElementById("signup-screen").style.display = "block"
+    document.getElementById("signup-screen").style.display = "flex"
 })
 document.getElementById("error-password-back").addEventListener("click", function() {
     // hide hunt, show welcome
     document.getElementById("error-email").style.display = "none"
     document.getElementById("error-password").style.display = "none"
-    document.getElementById("signup-screen").style.display = "block"
+    document.getElementById("signup-screen").style.display = "flex"
 })
 //click hint button
 document.getElementById("hint-button").addEventListener("click", function() {
