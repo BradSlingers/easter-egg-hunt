@@ -1,12 +1,37 @@
+@font-face {
+    font-family: 'Press_Start_2P';
+    src: url("/static/Press_Start_2P/PressStart2P-Regular.ttf");
+}
+@font-face {
+  font-family: "Lobster_Regular";
+  src: url("/static/Lobster/Lobster-Regular.ttf");
+}
 html {
-    background-image: url("/static/images/RemaxEggHunt3.png");
+    background-image: url("/static/images/welcomeScreen.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     min-height: 100vh;
 }
-
+#welcome-screen {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 40px;
+    position: relative;
+}
+#welcome-text {
+    position: absolute;
+    top: 15%;
+    left: 53%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    font-family: "Lobster_Regular";
+    color: red;
+  }
+ 
 body {
     margin: 0;
     padding: 0;
@@ -45,4 +70,16 @@ img {
 #map {
     height: 300px;
     width: 100%;
+}
+button {
+    background-color: #e30613;
+    color: white;
+    font-family: 'Press_Start_2P';
+    border: none;
+    border-radius: 20px;
+    padding: 10px 10px;
+    font-size: 25;
+    width: 40%;
+    margin: 10px auto;
+    display: block;
 }

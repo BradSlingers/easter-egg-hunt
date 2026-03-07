@@ -101,7 +101,7 @@ document.getElementById("submit-login").addEventListener("click", function() {
 document.getElementById("login-back").addEventListener("click", function() {
     // hide login, show welcome
     document.getElementById("login-screen").style.display = "none"
-    document.getElementById("welcome-screen").style.display = "block"
+    document.getElementById("welcome-screen").style.display = "flex"
 })
 
 
@@ -110,14 +110,14 @@ document.getElementById("signup-back").addEventListener("click", function() {
     document.getElementById("signup-screen").style.display = "none"
     document.getElementById("error-email").style.display = "none"
     document.getElementById("error-password").style.display = "none"
-    document.getElementById("welcome-screen").style.display = "block"
+    document.getElementById("welcome-screen").style.display = "flex"
 })
 
 document.getElementById("hunt-back").addEventListener("click", function() {
     // hide hunt, show welcome
     localStorage.removeItem("token")
     document.getElementById("hunt-screen").style.display = "none"
-    document.getElementById("welcome-screen").style.display = "block"
+    document.getElementById("welcome-screen").style.display = "flex"
 })
 
 document.getElementById("error-email-back").addEventListener("click", function() {
@@ -316,7 +316,7 @@ function check_logged_in() {
             get_progress()
         }
         else {
-            document.getElementById("welcome-screen").style.display = "block";
+            document.getElementById("welcome-screen").style.display = "flex";
         }
 
             console.log(data.email)
@@ -327,7 +327,7 @@ function check_logged_in() {
 
         }
     else {
-        document.getElementById("welcome-screen").style.display = "block";
+        document.getElementById("welcome-screen").style.display = "flex";
 
     }
 
