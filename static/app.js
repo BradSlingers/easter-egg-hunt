@@ -133,14 +133,14 @@ document.getElementById("error-password-back").addEventListener("click", functio
     document.getElementById("signup-screen").style.display = "flex"
 })
 //click hint button
-document.getElementById("hint-button").addEventListener("click", function() {
-    get_hint()
+// document.getElementById("hint-button").addEventListener("click", function() {
+//     get_hint()
 
-})
+// })
 
-document.getElementById("progress-button").addEventListener("click", function() {
-    get_progress()
-})
+// document.getElementById("progress-button").addEventListener("click", function() {
+//     get_progress()
+// })
 
 document.getElementById("location-check").addEventListener("click", function() {
             if (navigator.geolocation) {
