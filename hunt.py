@@ -95,6 +95,9 @@ def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_
 @router.get("/hunt/progress")
 def get_progress(user_email: str = Depends(get_current_user)):
     found_egg_list = []
+    #getting the egg coords so that I can get the map marker when map reloads
+    #making this a list of dictionaries
+    egg_coords = []
     with engine.connect() as conn:
         find_user_id = conn.execute(text("""
                                          select id 
@@ -107,7 +110,7 @@ def get_progress(user_email: str = Depends(get_current_user)):
         user_id = row[0]
 
         row_cursor = conn.execute(text("""
-                                    select egg_order
+                                    select egg_order,egg_lat,egg_lon
                                     from eggs
                                     where egg_id in(
                                     select egg_id
@@ -118,8 +121,9 @@ def get_progress(user_email: str = Depends(get_current_user)):
             return {"message":"No progress.Go Hunt!"}
         for r in row_actual:
             found_egg_list.append(r[0])
+            egg_coords.append({"lat":r[1],"lon":r[2]})
         number_of_eggs = len(row_actual)
         total = conn.execute(text("SELECT COUNT(*) FROM eggs")).fetchone()[0]
         if number_of_eggs == total:
-            return {"message":"You have found all the Eggs!"}
-        return {"message":f"Found {number_of_eggs}/{total} eggs. The eggs are {found_egg_list}"}
+            return {"message":"You have found all the Eggs!","egg_coords":egg_coords}
+        return {"message":f"Found {number_of_eggs}/{total} eggs. The eggs are {found_egg_list}","egg_coords":egg_coords}

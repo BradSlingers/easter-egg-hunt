@@ -62,6 +62,8 @@ document.getElementById("goto-login").addEventListener("click", function() {
     // hide welcome, show login
     document.getElementById("welcome-screen").style.display = "none"
     document.getElementById("login-screen").style.display = "block"
+    document.getElementById("login-email").value = ""
+    document.getElementById("login-password").value = ""
 
 })
 
@@ -256,6 +258,16 @@ function get_progress() {
     // data is what your API returned
     const the_progress_element = document.getElementById("the-progress");
     the_progress_element.textContent = data.message
+    //gets a list of dictionarys of the egg coords already found
+    //this is to update the map with markers when a person signs in and out
+    if (data.egg_coords) {
+        for (const coord of data.egg_coords) {
+            L.marker([coord["lat"], coord["lon"]]).addTo(map)
+
+        }
+
+    }
+
     console.log(data.message)
 
     }).catch(err => {
