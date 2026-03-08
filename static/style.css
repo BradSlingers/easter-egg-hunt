@@ -31,7 +31,7 @@ html {
     /* display: flex; */
     flex-direction: column;
     justify-content: flex-end;
-    padding-bottom: 40px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
     position: relative;
 }
 #welcome-text {
@@ -48,7 +48,7 @@ html {
     /* display: flex; */
     flex-direction: column;
     justify-content: flex-end;
-    padding-bottom: 40px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
     position: relative;
 }
 #login-screen {
@@ -56,9 +56,26 @@ html {
     /* display: flex; */
     flex-direction: column;
     justify-content: flex-end;
-    padding-bottom: 40px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
     position: relative;
 }
+#win-screen {
+    height: 100dvh;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+    position: relative;
+}
+#win-text {
+    position: absolute;
+    top: 15%;
+    left: 53%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    font-family: "Lobster_Regular";
+    color: red;
+  }
  
 body {
     margin: 0;

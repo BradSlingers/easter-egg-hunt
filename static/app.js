@@ -143,13 +143,15 @@ document.getElementById("error-password-back").addEventListener("click", functio
 // })
 
 document.getElementById("location-check").addEventListener("click", function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(success,error,{timeout:10000});
-            }
-            else {
-                document.getElementById("the-location").textContent = "Your browser doesn't support GPS."
+    document.getElementById("location-check").disabled = true;
+    document.getElementById("location-check").textContent = "Checking...";
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success,error,{timeout:10000});
+    }
+    else {
+        document.getElementById("the-location").textContent = "Your browser doesn't support GPS."
 
-            }
+    }
 })
 
 function get_token(token_response) {
@@ -188,7 +190,7 @@ function success(pos) {
         if (data.golden === 1) {
             the_location_element.textContent = data.message + " "+ data.egg_lat
             document.getElementById("hunt-screen").style.display = "none"
-            document.getElementById("win-screen").style.display = "block"
+            load_win_screen()
 
         }
         else {
@@ -210,10 +212,15 @@ function success(pos) {
     console.log(`Latitude : ${pos.coords.latitude}`);
     console.log(`Longitude: ${pos.coords.longitude}`);
     console.log(`More or less ${pos.coords.accuracy} meters.`);
+    document.getElementById("location-check").disabled = false;
+    document.getElementById("location-check").textContent = "I'm Here!";
 }
 
 function error(err) {
-    document.getElementById("the-location").textContent = "GPS Error: " + err.code + " - " + err.message
+    document.getElementById("the-location").textContent = "GPS: " + err.message + " Try Again"
+    console.log(err.code)
+    document.getElementById("location-check").disabled = false;
+    document.getElementById("location-check").textContent = "I'm Here!";
 }
 
 function get_hint() {
@@ -330,5 +337,9 @@ function check_logged_in() {
         document.getElementById("welcome-screen").style.display = "flex";
 
     }
+
+}
+function load_win_screen() {
+    document.getElementById("win-screen").style.display = "flex"
 
 }
