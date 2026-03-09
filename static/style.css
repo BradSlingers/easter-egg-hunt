@@ -15,6 +15,7 @@ html {
     min-height: 100vh;
     overflow: hidden;
 }
+/* #welcome-screen, */
 #signup-screen,
 #login-screen,
 #hunt-screen,
@@ -69,8 +70,8 @@ html {
 }
 #win-text {
     position: absolute;
-    top: 15%;
-    left: 53%;
+    top: 30%;
+    left: 45%;
     transform: translate(-50%, -50%);
     font-size: 40px;
     font-family: "Lobster_Regular";

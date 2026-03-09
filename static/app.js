@@ -170,10 +170,8 @@ function get_res(response) {
 
 function success(pos) {
     const token = localStorage.getItem("token");
-    // let user_lat = pos.coords.latitude;       
-    // let user_lon = pos.coords.longitude;
-    let user_lat = -34.069860126069145  
-    let user_lon = 18.568539443003324
+    let user_lat = pos.coords.latitude;       
+    let user_lon = pos.coords.longitude;
     
     fetch("/hunt/check-location", {
         method: "POST",
@@ -188,13 +186,13 @@ function success(pos) {
     console.log(data.message)
     if (data.found === true) {
         if (data.golden === 1) {
-            the_location_element.textContent = data.message + " "+ data.egg_lat
+            the_location_element.textContent = data.message
             document.getElementById("hunt-screen").style.display = "none"
             load_win_screen()
 
         }
         else {
-            the_location_element.textContent = data.message + " "+ data.egg_lat
+            the_location_element.textContent = data.message
             L.marker([data.egg_lat, data.egg_lon]).addTo(map)
             get_hint()
             get_progress()
@@ -202,7 +200,7 @@ function success(pos) {
         }
     }
     else {
-        the_location_element.textContent = data.message + " "+ data.egg_lat
+        the_location_element.textContent = data.message
     }
         }).catch(err => {
             alert(err.detail)
@@ -211,7 +209,6 @@ function success(pos) {
     console.log("Your current position is:");
     console.log(`Latitude : ${pos.coords.latitude}`);
     console.log(`Longitude: ${pos.coords.longitude}`);
-    console.log(`More or less ${pos.coords.accuracy} meters.`);
     document.getElementById("location-check").disabled = false;
     document.getElementById("location-check").textContent = "I'm Here!";
 }
