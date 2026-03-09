@@ -89,8 +89,9 @@ def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_
             conn.commit()
             if egg_golden == 1:
                 return {"message":"You have found the GOLDEN EGG!!!","found":True,"golden":1}
-            return {"message":f"You have found an egg! haversine = {haversine_dist} ","egg_lat":egg_lat,"egg_lon":egg_lon,"found":True,"golden":0}
-        return {"message":f"No egg found. Try again. haversine = {haversine_dist} ","egg_lat":egg_lat,"egg_lon":egg_lon,"found":False,"golden":0}
+            return {"message":f"You have found an egg! distance away = {haversine_dist} ","egg_lat":egg_lat,"egg_lon":egg_lon,"found":True,"golden":0}
+        return {"message":f"No egg found. Try again.","haversine":f'distance away = {haversine_dist} meters',"egg_lat":egg_lat,"egg_lon":egg_lon,"found":False,"golden":0}
+        # return {"message":f"No egg found. Try again. distance away = {haversine_dist} ","egg_lat":egg_lat,"egg_lon":egg_lon,"found":False,"golden":0}
 
 @router.get("/hunt/progress")
 def get_progress(user_email: str = Depends(get_current_user)):

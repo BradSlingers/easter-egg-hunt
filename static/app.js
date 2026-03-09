@@ -200,7 +200,7 @@ function success(pos) {
         }
     }
     else {
-        the_location_element.textContent = data.message
+        the_location_element.textContent = data.message + " "+ data.haversine
     }
         }).catch(err => {
             alert(err.detail)
