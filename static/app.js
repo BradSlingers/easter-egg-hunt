@@ -320,9 +320,9 @@ function check_logged_in() {
             get_progress()
         }
         else {
-            // document.getElementById("welcome-screen").style.display = "flex";
+            document.getElementById("welcome-screen").style.display = "flex";
             //testing
-            document.getElementById("instruction-screen").style.display = "flex";
+            // document.getElementById("instruction-screen").style.display = "flex";
         }
 
             console.log(data.email)
@@ -333,9 +333,9 @@ function check_logged_in() {
 
         }
     else {
-        // document.getElementById("welcome-screen").style.display = "flex";
+        document.getElementById("welcome-screen").style.display = "flex";
         //testing
-        document.getElementById("instruction-screen").style.display = "flex";
+        // document.getElementById("instruction-screen").style.display = "flex";
 
     }
 
