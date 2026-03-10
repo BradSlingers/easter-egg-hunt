@@ -6,7 +6,7 @@
   font-family: "Lobster_Regular";
   src: url("/static/Lobster/Lobster-Regular.ttf");
 }
-html {
+/* html {
     background-image: url("/static/images/welcomescreenbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -14,13 +14,13 @@ html {
     background-attachment: fixed;
     min-height: 100vh;
     overflow: hidden;
-}
-/* #welcome-screen, */
+} */
+#welcome-screen,
 #signup-screen,
 #login-screen,
 #hunt-screen,
 #win-screen,
-#instruction-screen,
+/* #instruction-screen, */
 #error-screen,
 #error-email,
 #error-password
@@ -28,6 +28,13 @@ html {
     display: none;
 }
 #welcome-screen {
+    background-image: url("/static/images/welcomescreenbunny.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden;
     height: 100dvh;
     /* display: flex; */
     flex-direction: column;
@@ -59,6 +66,15 @@ html {
     justify-content: flex-end;
     padding-bottom: calc(40px + env(safe-area-inset-bottom));
     position: relative;
+}
+#hunt-screen {
+    background-image: url("/static/images/welcomescreenbunny.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden;
 }
 #win-screen {
     height: 100dvh;
@@ -146,4 +162,14 @@ input {
     margin: 8px auto;
     display: block;
     outline: none;
+}
+#instruction-screen {
+    background-image: url("/static/images/instructionscreen2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden;
+    align-items: flex-start;
 }
