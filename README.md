@@ -74,6 +74,9 @@ Open [http://localhost:8000](http://localhost:8000) in your browser.
 
 > **Note:** GPS-based location checking requires HTTPS in production. For local testing on a mobile device, you may need to enable insecure origins in Chrome (`chrome://flags` → Insecure origins treated as secure).
 
+## Deployment
+The app is currently in development and will be deployed to a production server with HTTPS ahead of its launch date. HTTPS is required for the browser's Geolocation API to function outside of localhost.
+
 ## What I Learned
 
 **Data flow and API design** — Building every endpoint from scratch gave me a clear understanding of how data moves from the frontend through HTTP requests to API endpoints and back. The more endpoints I built, the more intuitive the request-response cycle became.
