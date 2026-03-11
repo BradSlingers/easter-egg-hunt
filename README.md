@@ -75,7 +75,7 @@ Open [http://localhost:8000](http://localhost:8000) in your browser.
 > **Note:** GPS-based location checking requires HTTPS in production. For local testing on a mobile device, you may need to enable insecure origins in Chrome (`chrome://flags` → Insecure origins treated as secure).
 
 ## Deployment
-The app is currently in development and will be deployed to a production server with HTTPS ahead of its launch date. HTTPS is required for the browser's Geolocation API to function outside of localhost.
+The app is currently in development and will be deployed to a production server with HTTPS ahead of its launch date. HTTPS is required for the browser's Geolocation API to function outside of localhost. During development, Cloudflare Tunnel is used to expose the local server over HTTPS for testing on mobile devices.
 
 ## What I Learned
 
