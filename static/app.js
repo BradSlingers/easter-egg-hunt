@@ -31,17 +31,20 @@ document.getElementById("submit-signup").addEventListener("click", function() {
             // data is what your API returned
             localStorage.setItem("token", data);
             document.getElementById("signup-screen").style.display = "none";
-            document.getElementById("hunt-screen").style.display = "block";
+            // document.getElementById("hunt-screen").style.display = "block";
+            document.getElementById("instruction-screen").style.display = "block";
             // Remove map and clean up
-            if (map != undefined) {
-                map.off();
-                map.remove();
-            }
+            // moved the below code to own function because I show instruction screen first
+            //put it in skip click even
+            // if (map != undefined) {
+            //     map.off();
+            //     map.remove();
+            // }
 
-            load_map()
-            reset_hunt_screen()
-            get_hint()
-            get_progress()
+            // load_map()
+            // reset_hunt_screen()
+            // get_hint()
+            // get_progress()
 
             }).catch(err => {
                 alert(err.detail)
@@ -81,15 +84,18 @@ document.getElementById("submit-login").addEventListener("click", function() {
             localStorage.setItem("token", data);
             // hide login, show hunt
             document.getElementById("login-screen").style.display = "none";
-            document.getElementById("hunt-screen").style.display = "block";
-            if (map != undefined) {
-                map.off();
-                map.remove();
-            }
-            load_map()
-            reset_hunt_screen()
-            get_hint()
-            get_progress()
+            // document.getElementById("hunt-screen").style.display = "block";
+            document.getElementById("instruction-screen").style.display = "block";
+            // moved the below code to own function because I show instruction screen first
+            //put it in skip screen click
+            // if (map != undefined) {
+            //     map.off();
+            //     map.remove();
+            // }
+            // load_map()
+            // reset_hunt_screen()
+            // get_hint()
+            // get_progress()
 
             }).catch(err => {
                 alert(err.detail)
@@ -102,6 +108,14 @@ document.getElementById("login-back").addEventListener("click", function() {
     // hide login, show welcome
     document.getElementById("login-screen").style.display = "none"
     document.getElementById("welcome-screen").style.display = "flex"
+})
+
+document.getElementById("skip-instruction").addEventListener("click", function() {
+    // hide login, show welcome
+    document.getElementById("instruction-screen").style.display = "none"
+    document.getElementById("hunt-screen").style.display = "block"
+    remove_map_cleanup()
+
 })
 
 
@@ -342,5 +356,17 @@ function check_logged_in() {
 }
 function load_win_screen() {
     document.getElementById("win-screen").style.display = "flex"
+
+}
+
+function remove_map_cleanup() {
+    if (map != undefined) {
+        map.off();
+        map.remove();
+    }
+    load_map()
+    reset_hunt_screen()
+    get_hint()
+    get_progress()
 
 }

@@ -15,12 +15,12 @@
     min-height: 100vh;
     overflow: hidden;
 } */
-#welcome-screen,
+/* #welcome-screen, */
 #signup-screen,
 #login-screen,
 #hunt-screen,
 #win-screen,
-/* #instruction-screen, */
+#instruction-screen,
 #error-screen,
 #error-email,
 #error-password
@@ -82,7 +82,7 @@
     position: relative;
 }
 #hunt-screen {
-    background-image: url("/static/images/welcomescreenbunny.png");
+    background-image: url("/static/images/instructionbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -178,7 +178,7 @@ input {
     outline: none;
 }
 #instruction-screen {
-    background-image: url("/static/images/instructionscreen2.png");
+    background-image: url("/static/images/instructionbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
