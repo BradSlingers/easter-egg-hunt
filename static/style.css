@@ -23,7 +23,10 @@
 #instruction-screen,
 #error-screen,
 #error-email,
-#error-password
+#error-password,
+#error-number,
+#join-screen,
+#number-check
  {
     display: none;
 }
@@ -67,6 +70,21 @@
     position: relative;
 }
 #login-screen {
+    background-image: url("/static/images/welcomescreenbunny.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden;
+    height: 100dvh;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+    position: relative;
+}
+#join-screen {
     background-image: url("/static/images/welcomescreenbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -186,4 +204,25 @@ input {
     min-height: 100vh;
     overflow: hidden;
     align-items: flex-start;
+}
+/* #number-check{
+    background-image: url("/static/images/instructionbunny.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden;
+    align-items: flex-start;
+} */
+#number-check {
+    /* display: none; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
 }

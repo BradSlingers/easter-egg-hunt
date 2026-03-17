@@ -25,11 +25,10 @@ with engine.connect() as conn:
     conn.commit()
 
 with engine.connect() as conn:
-    mail = "string"
-    password = "string"
+    number = "0211234567"
+    name = "brad"
 
-    hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-    conn.execute(text("insert into users(email, passhash, created_at) values (:email, :passhash, :created_at)"), {"email":mail,"passhash":hashed,"created_at":int(time.time())},)
+    conn.execute(text("insert into users(PHONENUM, NAME, created_at) values (:phonenum, :name, :created_at)"), {"phonenum":number,"name":name,"created_at":int(time.time())},)
     conn.commit()
 
 with engine.connect() as conn:

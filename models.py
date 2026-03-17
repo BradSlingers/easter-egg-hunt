@@ -5,10 +5,16 @@ from sqlalchemy import text
 from database import engine
 
 with engine.connect() as conn:
-    conn.execute(text("""CREATE TABLE if not exists users(
+    conn.execute(text("""CREATE TABLE if not exists admins(
                       ID integer primary key,
                       EMAIL text unique,
                       PASSHASH text,
+                      created_at integer)"""))
+
+    conn.execute(text("""CREATE TABLE if not exists users(
+                      ID integer primary key,
+                      PHONENUM text unique,
+                      NAME text,
                       created_at integer)"""))
 
     conn.execute(text("""CREATE TABLE if not exists eggs(

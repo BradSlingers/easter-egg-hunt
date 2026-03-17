@@ -27,12 +27,12 @@ def haversine(lon1, lat1, lon2, lat2):
     # Haversine formula
     dlon, dlat = lon2 - lon1, lat2 - lat1
     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-    return (2 * asin(sqrt(a)) * 6371) * 1000# 6371 km radius
+    return int((2 * asin(sqrt(a)) * 6371) * 1000)# 6371 km radius
 
 @router.get("/hunt/next-hint")
-def get_hint(user_email: str = Depends(get_current_user)):
+def get_hint(user_phonenum: str = Depends(get_current_user)):
     with engine.connect() as conn:
-        find_user_id = conn.execute(text("select id from users where email = :email "),{"email":user_email})
+        find_user_id = conn.execute(text("select id from users where phonenum = :num "),{"num":user_phonenum})
         row = find_user_id.fetchone()
         if row is None:
             return {"message":"no id"}
@@ -52,9 +52,9 @@ def get_hint(user_email: str = Depends(get_current_user)):
         return {"hint":row_with_hint[0],"egg":row_with_hint[1]}
         
 @router.post("/hunt/check-location")
-def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_user)):
+def check_location(user_coord:Coordinates,user_phonenum: str = Depends(get_current_user)):
     with engine.connect() as conn:
-        find_user_id = conn.execute(text("select id from users where email = :email "),{"email":user_email})
+        find_user_id = conn.execute(text("select id from users where phonenum = :num "),{"num":user_phonenum})
         row = find_user_id.fetchone()
         if row is None:
             raise HTTPException(status_code=500, detail="User not found in database")
@@ -80,7 +80,7 @@ def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_
         user_lon = user_coord.longitude
         #Haversine to go here
         haversine_dist = haversine(egg_lat,egg_lon,user_lat,user_lon)
-        if haversine_dist <= 20:
+        if haversine_dist <= 30:
             conn.execute(text("""
                               insert into user_progress(user_id,egg_id,found_at) 
                               values(:user_id,:egg_id,:found_at)
@@ -94,7 +94,7 @@ def check_location(user_coord:Coordinates,user_email: str = Depends(get_current_
         # return {"message":f"No egg found. Try again. distance away = {haversine_dist} ","egg_lat":egg_lat,"egg_lon":egg_lon,"found":False,"golden":0}
 
 @router.get("/hunt/progress")
-def get_progress(user_email: str = Depends(get_current_user)):
+def get_progress(user_phonenum: str = Depends(get_current_user)):
     found_egg_list = []
     #getting the egg coords so that I can get the map marker when map reloads
     #making this a list of dictionaries
@@ -103,8 +103,8 @@ def get_progress(user_email: str = Depends(get_current_user)):
         find_user_id = conn.execute(text("""
                                          select id 
                                          from users 
-                                         where email = :email 
-                                         """),{"email":user_email})
+                                         where phonenum = :num 
+                                         """),{"num":user_phonenum})
         row = find_user_id.fetchone()
         if row is None:
             raise HTTPException(status_code=500, detail="User not found in database")

@@ -12,28 +12,17 @@
   <body>
     <div id="welcome-screen">
         <div id="welcome-text">Egg-citing Hunt!</div>
-        <button id="goto-signup">Signup</button>
-        <button id="goto-login">Login</button>
+        <button id="goto-join">Join</button>
 
     </div>
-    <div id="signup-screen">
-        <h2>Signup with your email</h2>
-        <input type="email" id="signup-email" placeholder="Email">
-        <input type="email" id="verify-email" placeholder="Confirm Email">
-        <input type="password" id="signup-password" placeholder="Password">
-        <input type="password" id="signup-verify" placeholder="Confirm Password">
-        <button id="submit-signup">Submit</button>
-        <button id="signup-back">Back</button>
-
+    <div id="join-screen">
+        <h2>Join with your name and phone number</h2>
+        <input type="name" id="join-name" placeholder="Name and Surname">
+        <input type="number" id="join-number" placeholder="Phone Number">
+        <button id="submit-join">Submit</button>
+        <button id="join-back">Back</button>
     </div>
-    <div id="login-screen">
-        <h2>Login with your email and password</h2>
-        <input type="email" id="login-email" placeholder="Email">
-        <input type="password" id="login-password" placeholder="Password">
-        <button id="submit-login">Submit</button>
-        <button id="login-back">Back</button>
 
-    </div>
     <div id="hunt-screen">
       <div id="map"></div>
       <!-- <h2>Let the Hunt begin!</h2> -->
@@ -67,9 +56,19 @@
       <h2>Please make sure the emails match</h2>
       <button id="error-email-back">Back</button>
     </div>
+    <div id="error-number">
+      <h2>Number must be 10 digits and start with 0</h2>
+      <button id="error-email-back">Back</button>
+    </div>
     <div id="error-password">
       <h2>Please make sure the passwords match</h2>
       <button id="error-password-back">Back</button>
+    </div>
+    <div id="number-check">
+      <h2>Is your phone number correct?</h2>
+      <p id="the-phonenumber">...</p>
+      <button id="correct-number">Yes</button>
+      <button id="incorrect-number">No</button>
     </div>
     <script src="static/app.js"></script>
   </body>

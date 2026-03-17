@@ -15,10 +15,9 @@ from jose import jwt
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-print(SECRET_KEY)
 class User(BaseModel):
-    email : str
-    password : str
+    name : str
+    number : str 
 
 router = APIRouter()
 
@@ -31,8 +30,8 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
     except:
         raise HTTPException(status_code=403, detail="Invalid token")
 
-def create_token(user_email):
-    token = jwt.encode({'sub': user_email}, SECRET_KEY, algorithm='HS256')
+def create_token(user_number):
+    token = jwt.encode({'sub': user_number}, SECRET_KEY, algorithm='HS256')
     return token 
 
 def decode_token(token):
@@ -69,6 +68,17 @@ async def login(user: User):
         if not bcrypt.checkpw(pword, ph.encode('utf-8')):
             raise HTTPException(status_code=401, detail="Incorrect email or password")
         return create_token(mail)
+@router.post("/auth/join")
+async def login(user: User):
+    name = user.name
+    number = user.number
+    with engine.connect() as conn:
+        check_number = conn.execute(text("select id from users where phonenum = :number"),{"number":number})
+        row = check_number.fetchone()
+        if row is None:
+            conn.execute(text("insert into users(phonenum, name, created_at) values (:num, :name, :created_at)"), {"num":number,"name":name,"created_at":int(time.time())})
+        conn.commit()
+        return create_token(number)
 @router.get("/auth/me")
-def me(user_email: str = Depends(get_current_user)):
-    return {"email": user_email}
+def me(user_phonenum: str = Depends(get_current_user)):
+    return {"phonenum": user_phonenum}

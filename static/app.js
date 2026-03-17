@@ -1,114 +1,119 @@
 var map;
 check_logged_in()
-document.getElementById("goto-signup").addEventListener("click", function() {
+document.getElementById("goto-join").addEventListener("click", function() {
     // hide welcome, show signup
     document.getElementById("welcome-screen").style.display = "none"
-    document.getElementById("signup-screen").style.display = "flex"
-    document.getElementById("signup-email").value = ""
-    document.getElementById("verify-email").value = ""
-    document.getElementById("signup-password").value = ""
-    document.getElementById("signup-verify").value = ""
+    document.getElementById("join-screen").style.display = "flex"
+    document.getElementById("join-name").value = ""
+    document.getElementById("join-number").value = ""
 
 })
 
-document.getElementById("submit-signup").addEventListener("click", function() {
-    let sign_up_email = document.getElementById("signup-email").value
-    let verify_email = document.getElementById("verify-email").value
-    let sign_up_password = document.getElementById("signup-password").value
-    let sign_verify = document.getElementById("signup-verify").value
+document.getElementById("submit-join").addEventListener("click", function() {
+    let joinName = document.getElementById("join-name").value
+    let joinNumber = document.getElementById("join-number").value
 
-    if (sign_up_email == verify_email) {
-        if (sign_up_password == sign_verify) {
-            let email = sign_up_email;
-            let password = sign_up_password;
-            fetch("/auth/signup", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({email: email, password: password})
-            })
-            .then(get_token)
-            .then(function(data) {
-            // data is what your API returned
-            localStorage.setItem("token", data);
-            document.getElementById("signup-screen").style.display = "none";
-            // document.getElementById("hunt-screen").style.display = "block";
-            document.getElementById("instruction-screen").style.display = "block";
-            // Remove map and clean up
-            // moved the below code to own function because I show instruction screen first
-            //put it in skip click even
-            // if (map != undefined) {
-            //     map.off();
-            //     map.remove();
-            // }
+    if (/^0\d{9}$/.test(joinNumber)) {
 
-            // load_map()
-            // reset_hunt_screen()
-            // get_hint()
-            // get_progress()
+        document.getElementById("number-check").style.display = "flex"
+        const the_check_number = document.getElementById("the-phonenumber");
+        the_check_number.textContent = joinNumber 
 
-            }).catch(err => {
-                alert(err.detail)
-                }) 
-
-        }
-        else {
-                document.getElementById("error-password").style.display  = "block"
-        }
     }
     else {
-        document.getElementById("error-email").style.display = "block"
+            document.getElementById("error-number").style.display  = "block"
     }
 })
 
+document.getElementById("correct-number").addEventListener("click", function() {
+    let joinName = document.getElementById("join-name").value
+    let joinNumber = document.getElementById("join-number").value
+    fetch("/auth/join", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({name: joinName, number: joinNumber})
+    })
+    .then(get_token)
+    .then(function(data) {
+    // data is what your API returned
+    localStorage.setItem("token", data);
+    document.getElementById("number-check").style.display = "none";
+    document.getElementById("join-screen").style.display = "none";
+    // document.getElementById("hunt-screen").style.display = "block";
+    document.getElementById("instruction-screen").style.display = "block";
+    // Remove map and clean up
+    // moved the below code to own function because I show instruction screen first
+    //put it in skip click even
+    // if (map != undefined) {
+    //     map.off();
+    //     map.remove();
+    // }
 
-document.getElementById("goto-login").addEventListener("click", function() {
-    // hide welcome, show login
-    document.getElementById("welcome-screen").style.display = "none"
-    document.getElementById("login-screen").style.display = "flex"
-    document.getElementById("login-email").value = ""
-    document.getElementById("login-password").value = ""
+    // load_map()
+    // reset_hunt_screen()
+    // get_hint()
+    // get_progress()
 
-})
-
-document.getElementById("submit-login").addEventListener("click", function() {
-            let email = document.getElementById("login-email").value;
-            let password = document.getElementById("login-password").value;
-            fetch("/auth/login", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({email: email, password: password})
-            })
-            .then(get_token)
-            .then(data => {
-            // data is what your API returned
-            localStorage.setItem("token", data);
-            // hide login, show hunt
-            document.getElementById("login-screen").style.display = "none";
-            // document.getElementById("hunt-screen").style.display = "block";
-            document.getElementById("instruction-screen").style.display = "block";
-            // moved the below code to own function because I show instruction screen first
-            //put it in skip screen click
-            // if (map != undefined) {
-            //     map.off();
-            //     map.remove();
-            // }
-            // load_map()
-            // reset_hunt_screen()
-            // get_hint()
-            // get_progress()
-
-            }).catch(err => {
-                alert(err.detail)
-                }) 
+    }).catch(err => {
+        alert(err.detail)
+        }) 
 
 })
 
+document.getElementById("incorrect-number").addEventListener("click", function() {
+    document.getElementById("number-check").style.display = "none"
+    document.getElementById("join-screen").style.display = "flex"
 
-document.getElementById("login-back").addEventListener("click", function() {
-    // hide login, show welcome
-    document.getElementById("login-screen").style.display = "none"
-    document.getElementById("welcome-screen").style.display = "flex"
 })
+
+// document.getElementById("goto-login").addEventListener("click", function() {
+//     // hide welcome, show login
+//     document.getElementById("welcome-screen").style.display = "none"
+//     document.getElementById("login-screen").style.display = "flex"
+//     document.getElementById("login-email").value = ""
+//     document.getElementById("login-password").value = ""
+
+// })
+
+// document.getElementById("submit-login").addEventListener("click", function() {
+//             let email = document.getElementById("login-email").value;
+//             let password = document.getElementById("login-password").value;
+//             fetch("/auth/login", {
+//                 method: "POST",
+//                 headers: {"Content-Type": "application/json"},
+//                 body: JSON.stringify({email: email, password: password})
+//             })
+//             .then(get_token)
+//             .then(data => {
+//             // data is what your API returned
+//             localStorage.setItem("token", data);
+//             // hide login, show hunt
+//             document.getElementById("login-screen").style.display = "none";
+//             // document.getElementById("hunt-screen").style.display = "block";
+//             document.getElementById("instruction-screen").style.display = "block";
+//             // moved the below code to own function because I show instruction screen first
+//             //put it in skip screen click
+//             // if (map != undefined) {
+//             //     map.off();
+//             //     map.remove();
+//             // }
+//             // load_map()
+//             // reset_hunt_screen()
+//             // get_hint()
+//             // get_progress()
+
+//             }).catch(err => {
+//                 alert(err.detail)
+//                 }) 
+
+// })
+
+
+// document.getelementbyid("login-back").addeventlistener("click", function() {
+//     // hide login, show welcome
+//     document.getelementbyid("login-screen").style.display = "none"
+//     document.getelementbyid("welcome-screen").style.display = "flex"
+// })
 
 document.getElementById("skip-instruction").addEventListener("click", function() {
     // hide login, show welcome
@@ -119,13 +124,13 @@ document.getElementById("skip-instruction").addEventListener("click", function()
 })
 
 
-document.getElementById("signup-back").addEventListener("click", function() {
-    // hide signup, show welcome
-    document.getElementById("signup-screen").style.display = "none"
-    document.getElementById("error-email").style.display = "none"
-    document.getElementById("error-password").style.display = "none"
-    document.getElementById("welcome-screen").style.display = "flex"
-})
+// document.getElementById("signup-back").addEventListener("click", function() {
+//     // hide signup, show welcome
+//     document.getElementById("join-screen").style.display = "none"
+//     document.getElementById("error-email").style.display = "none"
+//     document.getElementById("error-password").style.display = "none"
+//     document.getElementById("welcome-screen").style.display = "flex"
+// })
 
 document.getElementById("hunt-back").addEventListener("click", function() {
     // hide hunt, show welcome
@@ -138,13 +143,13 @@ document.getElementById("error-email-back").addEventListener("click", function()
     // hide hunt, show welcome
     document.getElementById("error-email").style.display = "none"
     document.getElementById("error-password").style.display = "none"
-    document.getElementById("signup-screen").style.display = "flex"
+    document.getElementById("join-screen").style.display = "flex"
 })
 document.getElementById("error-password-back").addEventListener("click", function() {
     // hide hunt, show welcome
     document.getElementById("error-email").style.display = "none"
     document.getElementById("error-password").style.display = "none"
-    document.getElementById("signup-screen").style.display = "flex"
+    document.getElementById("join-screen").style.display = "flex"
 })
 //click hint button
 // document.getElementById("hint-button").addEventListener("click", function() {
@@ -321,7 +326,7 @@ function check_logged_in() {
         .then(get_res)
         .then(data => {
         // data is what your API returned
-        if (data.email) {
+        if (data.phonenum) {
             document.getElementById("welcome-screen").style.display = "none";
             document.getElementById("hunt-screen").style.display = "block";
             if (map != undefined) {
@@ -339,7 +344,7 @@ function check_logged_in() {
             // document.getElementById("instruction-screen").style.display = "flex";
         }
 
-            console.log(data.email)
+            console.log(data.phonenum)
 
         }).catch(err => {
             alert(err.detail)
@@ -370,3 +375,4 @@ function remove_map_cleanup() {
     get_progress()
 
 }
+
