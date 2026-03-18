@@ -48,7 +48,7 @@
 }
 #welcome-text {
     position: absolute;
-    top: 15%;
+    top: 20%;
     left: 53%;
     transform: translate(-50%, -50%);
     font-size: 40px;
@@ -209,6 +209,20 @@ input {
     min-height: 100vh;
     overflow: hidden;
     align-items: flex-start;
+    position: relative;
+}
+#instructions {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#skip-instruction {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 /* #number-check{
     background-image: url("/static/images/instructionbunny.png");
@@ -326,4 +340,11 @@ input {
     top: 30%;
     left: 50%;
     transform: translateX(-50%);
+}
+.screen-logo {
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
 }
