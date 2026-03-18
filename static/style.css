@@ -108,6 +108,7 @@
     background-attachment: fixed;
     min-height: 100vh;
     overflow: hidden;
+    position: relative;
 }
 #win-screen {
     background-image: url("/static/images/celebratebunny.png");
@@ -137,6 +138,7 @@ body {
     max-width: 480px;
     margin: 0 auto;
     font-family: sans-serif;
+    overflow: hidden;
 }
 p {
   color: red;
@@ -213,14 +215,14 @@ input {
 }
 #instructions {
     position: absolute;
-    top: 20%;
+    top: 15%;
     left: 50%;
     transform: translateX(-50%);
 }
 
 #skip-instruction {
     position: absolute;
-    bottom: 50px;
+    bottom: 110px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -337,7 +339,7 @@ input {
 }
 #join-text {
     position: absolute;
-    top: 30%;
+    top: 10%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -347,4 +349,41 @@ input {
     left: 50%;
     transform: translateX(-50%);
     width: 400px;
+}
+.screen-logo-bottom {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+}
+#goto-join {
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#join-name {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#join-number {
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#submit-join {
+    position: absolute;
+    bottom: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#join-back {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
 }
