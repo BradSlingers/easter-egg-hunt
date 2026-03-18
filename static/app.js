@@ -74,6 +74,11 @@ document.getElementById("skip-instruction").addEventListener("click", function()
     remove_map_cleanup()
 
 })
+document.getElementById("join-back").addEventListener("click", function() {
+    // hide hunt, show welcome
+    document.getElementById("join-screen").style.display = "none"
+    document.getElementById("welcome-screen").style.display = "flex"
+})
 document.getElementById("hunt-back").addEventListener("click", function() {
     // hide hunt, show welcome
     localStorage.removeItem("token")
