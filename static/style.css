@@ -26,6 +26,7 @@
 #error-password,
 #join-screen,
 #number-check,
+#final-screen,
 #egg-found-overlay
  {
     display: none;
@@ -117,13 +118,15 @@
     height: 100dvh;
     overflow: hidden;
     position: relative;
+    flex-direction: column;
+    align-items: center;
 }
 #win-text {
     position: absolute;
     top: 30%;
     left: 45%;
     transform: translate(-50%, -50%);
-    font-size: 40px;
+    font-size: 60px;
     font-family: "Lobster_Regular";
     color: red;
   }
@@ -272,7 +275,7 @@ input {
     background: repeating-linear-gradient(0deg, #f06292, #f06292 10px, #ab47bc 10px, #ab47bc 20px);
 }
 .egg-2 {
-    background: repeating-linear-gradient(0deg, #42a5f5, #42a5f5 10px, #1565c0 10px, #1565c0 20px);
+    background: repeating-linear-gradient(0deg, #e7ecf0, #d5dbdf 10px, #1565c0 10px, #1565c0 20px);
 }
 .egg-3 {
     background: repeating-linear-gradient(0deg, #66bb6a, #66bb6a 10px, #fdd835 10px, #fdd835 20px);
@@ -287,8 +290,40 @@ input {
     display: flex;
     justify-content: center;
     gap: 15px;
+    margin-top: 50px;
+    width: 100%;
 }
 .egg-row .easter-egg {
     width: 40px;
     height: 55px;
+}
+#win-next {
+    margin-top: auto;
+    margin-bottom: 50px;
+    background-color: #e30613;
+    color: white;
+    font-family: 'Press_Start_2P';
+    border: none;
+    border-radius: 20px;
+    padding: 10px 10px;
+    font-size: 25;
+    width: 60%;
+    display: block;
+}
+#final-screen {
+    background-image: url("/static/images/instructionbunny.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+}
+#join-text {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
 }

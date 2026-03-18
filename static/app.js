@@ -66,54 +66,6 @@ document.getElementById("incorrect-number").addEventListener("click", function()
 
 })
 
-// document.getElementById("goto-login").addEventListener("click", function() {
-//     // hide welcome, show login
-//     document.getElementById("welcome-screen").style.display = "none"
-//     document.getElementById("login-screen").style.display = "flex"
-//     document.getElementById("login-email").value = ""
-//     document.getElementById("login-password").value = ""
-
-// })
-
-// document.getElementById("submit-login").addEventListener("click", function() {
-//             let email = document.getElementById("login-email").value;
-//             let password = document.getElementById("login-password").value;
-//             fetch("/auth/login", {
-//                 method: "POST",
-//                 headers: {"Content-Type": "application/json"},
-//                 body: JSON.stringify({email: email, password: password})
-//             })
-//             .then(get_token)
-//             .then(data => {
-//             // data is what your API returned
-//             localStorage.setItem("token", data);
-//             // hide login, show hunt
-//             document.getElementById("login-screen").style.display = "none";
-//             // document.getElementById("hunt-screen").style.display = "block";
-//             document.getElementById("instruction-screen").style.display = "block";
-//             // moved the below code to own function because I show instruction screen first
-//             //put it in skip screen click
-//             // if (map != undefined) {
-//             //     map.off();
-//             //     map.remove();
-//             // }
-//             // load_map()
-//             // reset_hunt_screen()
-//             // get_hint()
-//             // get_progress()
-
-//             }).catch(err => {
-//                 alert(err.detail)
-//                 }) 
-
-// })
-
-
-// document.getelementbyid("login-back").addeventlistener("click", function() {
-//     // hide login, show welcome
-//     document.getelementbyid("login-screen").style.display = "none"
-//     document.getelementbyid("welcome-screen").style.display = "flex"
-// })
 
 document.getElementById("skip-instruction").addEventListener("click", function() {
     // hide login, show welcome
@@ -122,17 +74,13 @@ document.getElementById("skip-instruction").addEventListener("click", function()
     remove_map_cleanup()
 
 })
-
-
-// document.getElementById("signup-back").addEventListener("click", function() {
-//     // hide signup, show welcome
-//     document.getElementById("join-screen").style.display = "none"
-//     document.getElementById("error-email").style.display = "none"
-//     document.getElementById("error-password").style.display = "none"
-//     document.getElementById("welcome-screen").style.display = "flex"
-// })
-
 document.getElementById("hunt-back").addEventListener("click", function() {
+    // hide hunt, show welcome
+    localStorage.removeItem("token")
+    document.getElementById("hunt-screen").style.display = "none"
+    document.getElementById("welcome-screen").style.display = "flex"
+})
+document.getElementById("final-signout").addEventListener("click", function() {
     // hide hunt, show welcome
     localStorage.removeItem("token")
     document.getElementById("hunt-screen").style.display = "none"
@@ -151,15 +99,6 @@ document.getElementById("error-password-back").addEventListener("click", functio
     document.getElementById("error-password").style.display = "none"
     document.getElementById("join-screen").style.display = "flex"
 })
-//click hint button
-// document.getElementById("hint-button").addEventListener("click", function() {
-//     get_hint()
-
-// })
-
-// document.getElementById("progress-button").addEventListener("click", function() {
-//     get_progress()
-// })
 
 document.getElementById("location-check").addEventListener("click", function() {
     document.getElementById("location-check").disabled = true;
@@ -220,7 +159,8 @@ function success(pos) {
         }
     }
     else {
-        the_location_element.textContent = data.message + " "+ data.haversine
+        the_location_element.textContent = data.message
+        // the_location_element.textContent = data.message + " "+ data.haversine
     }
         }).catch(err => {
             alert(err.detail)
@@ -361,7 +301,13 @@ function check_logged_in() {
 
 }
 function load_win_screen() {
-    showEggFound()
+    confetti({
+    particleCount: 150,
+    spread: 180,
+    origin: { x: 0.5, y: 0 },
+    gravity: 0.8,
+    angle:270
+});
     document.getElementById("win-screen").style.display = "flex"
 
 }
@@ -394,4 +340,12 @@ function showEggFound() {
             overlay.style.display = "none";
         }, 3000);
     }, 1500);
+}
+document.getElementById("win-next").addEventListener("click", function() {
+    // hide hunt, show welcome
+    document.getElementById("win-screen").style.display = "none"
+    document.getElementById("final-screen").style.display = "flex"
+})
+function load_final_screen() {
+    document.getElementById("final-screen").style.display = "flex"
 }

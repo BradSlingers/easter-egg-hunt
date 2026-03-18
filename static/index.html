@@ -13,11 +13,11 @@
   <body>
     <div id="welcome-screen">
         <div id="welcome-text">Egg-citing Hunt!</div>
-        <button id="goto-join">Join</button>
+        <button id="goto-join">Join/Login</button>
 
     </div>
     <div id="join-screen">
-        <h2>Join with your name and phone number</h2>
+        <h2 id="join-text">Join/Login with your name and phone number</h2>
         <input type="text" id="join-name" placeholder="Name and Surname">
         <input type="tel" id="join-number" placeholder="Phone Number">
         <button id="submit-join">Submit</button>
@@ -53,6 +53,7 @@
         <div class="easter-egg egg-4"></div>
         <div class="easter-egg egg-5"></div>
       </div>
+      <button id="win-next">Click to Claim your Eggs and Enter the Draw</button>
     </div>
     <div id="instruction-screen">
       <p id="instructions">Join our virtual Easter Egg hunt in Strandfontein Village. Follow the clues to help find your virtual egg. When you think you have found the location, click the red button "Im here". Found your virtual egg? Follow the next hint. When you find the 5 virtual eggs you will be entered into a draw to win R1000! HAPPY HUNTING! 
@@ -78,6 +79,16 @@
         <div class="easter-egg"></div>
           <p>You found it!</p>
       </div>
+    </div>
+    <div id="final-screen">
+      <p id="claim-egg">
+          Congratulations! You can collect your Eggs from Remax PropT at 211 Dennegeur Avenue Strandfontein.
+      </p>
+      <p id="draw-instruction">
+        You are now entered into the Draw that will take place live on TikTok.
+      </p>
+      <button id="final-signout"> Sign out</button>
+
     </div>
     <script src="static/app.js"></script>
   </body>

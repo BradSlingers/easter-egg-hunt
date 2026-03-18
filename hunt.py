@@ -48,7 +48,7 @@ def get_hint(user_phonenum: str = Depends(get_current_user)):
         """),{"id":user_id})
         row_with_hint = cursor_with_hint.fetchone()
         if row_with_hint is None:
-            return {"message":"There are no more hints. You have found all the Eggs!"}
+            return {"message":"There are no more hints. You have found all the Eggs! Go to Remax PropT at 211 Dennegeur Avenue to collect your eggs. Look out for the Draw on TikTok!"}
         return {"hint":row_with_hint[0],"egg":row_with_hint[1]}
         
 @router.post("/hunt/check-location")
@@ -70,7 +70,7 @@ def check_location(user_coord:Coordinates,user_phonenum: str = Depends(get_curre
         """),{"id":user_id})
         row_with_hint = cursor_with_hint.fetchone()
         if row_with_hint is None:
-            return {"message":"Hunt Complete! You've found all the Eggs!"}
+            return {"message":"Hunt Complete! You've found all the Eggs!Go to Remax PropT at 211 Dennegeur Avenue to collect your eggs."}
         #change after test
         egg_lat = row_with_hint[0]
         egg_lon = row_with_hint[1]
@@ -90,7 +90,7 @@ def check_location(user_coord:Coordinates,user_phonenum: str = Depends(get_curre
                               {"user_id":user_id,"egg_id":egg_id,"found_at":int(time.time())})        
             conn.commit()
             if egg_golden == 1:
-                return {"message":"You have found the GOLDEN EGG!!!","found":True,"golden":1}
+                return {"message":"You have found ALL 5 EGGS!!!","found":True,"golden":1}
             return {"message":f"You have found Egg {egg_order}!","egg_lat":egg_lat,"egg_lon":egg_lon,"found":True,"golden":0}
         return {"message":f"No egg found. Try again.","haversine":f'distance away = {haversine_dist} meters',"egg_lat":egg_lat,"egg_lon":egg_lon,"found":False,"golden":0}
         # return {"message":f"No egg found. Try again. distance away = {haversine_dist} ","egg_lat":egg_lat,"egg_lon":egg_lon,"found":False,"golden":0}
