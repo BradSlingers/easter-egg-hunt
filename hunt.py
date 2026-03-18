@@ -60,7 +60,7 @@ def check_location(user_coord:Coordinates,user_phonenum: str = Depends(get_curre
             raise HTTPException(status_code=500, detail="User not found in database")
         user_id = row[0]
         cursor_with_hint = conn.execute(text("""
-        select egg_lat, egg_lon, egg_id,is_golden
+        select egg_lat, egg_lon, egg_id,is_golden, egg_order
         from eggs
         where egg_id not in (select egg_id
         from user_progress
@@ -76,11 +76,13 @@ def check_location(user_coord:Coordinates,user_phonenum: str = Depends(get_curre
         egg_lon = row_with_hint[1]
         egg_id = row_with_hint[2]
         egg_golden = row_with_hint[3]
+        egg_order = row_with_hint[4]
         user_lat = user_coord.latitude
         user_lon = user_coord.longitude
         #Haversine to go here
         haversine_dist = haversine(egg_lat,egg_lon,user_lat,user_lon)
-        if haversine_dist <= 30:
+        if haversine_dist:
+        # if haversine_dist <= 30:
             conn.execute(text("""
                               insert into user_progress(user_id,egg_id,found_at) 
                               values(:user_id,:egg_id,:found_at)
@@ -89,7 +91,7 @@ def check_location(user_coord:Coordinates,user_phonenum: str = Depends(get_curre
             conn.commit()
             if egg_golden == 1:
                 return {"message":"You have found the GOLDEN EGG!!!","found":True,"golden":1}
-            return {"message":f"You have found an egg! distance away = {haversine_dist} ","egg_lat":egg_lat,"egg_lon":egg_lon,"found":True,"golden":0}
+            return {"message":f"You have found Egg {egg_order}!","egg_lat":egg_lat,"egg_lon":egg_lon,"found":True,"golden":0}
         return {"message":f"No egg found. Try again.","haversine":f'distance away = {haversine_dist} meters',"egg_lat":egg_lat,"egg_lon":egg_lon,"found":False,"golden":0}
         # return {"message":f"No egg found. Try again. distance away = {haversine_dist} ","egg_lat":egg_lat,"egg_lon":egg_lon,"found":False,"golden":0}
 
@@ -119,7 +121,7 @@ def get_progress(user_phonenum: str = Depends(get_current_user)):
                                     where user_id = :id)"""),{"id":user_id})
         row_actual = row_cursor.fetchall()
         if not row_actual:
-            return {"message":"No progress.Go Hunt!"}
+            return {"message":"..."}
         for r in row_actual:
             found_egg_list.append(r[0])
             egg_coords.append({"lat":r[1],"lon":r[2]})

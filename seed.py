@@ -32,11 +32,11 @@ with engine.connect() as conn:
     conn.commit()
 
 with engine.connect() as conn:
-    hint_1 = "Every curry, bredie and braai starts at this shop. The meat is not at the 'Bottom', it's at the ___. Find the first egg before your next stop!"
-    hint_2 = "Pencils, pens, glue and a book, the second egg is at this next shop, go have a look!"
-    hint_3 = "Between the books and shelves, the third egg is hinding quietly by itself. Knowledge is free at this place. Reading will put a smile on your face"
-    hint_4 = "Your fourth egg is waitng where the chicken meets the flame and the spice is never tame. Grab a bite and your tongue will never be the same."
-    hint_5 = "I scream, you scream, we all scream for... Your final egg is at the shop where Everyday they do what they do best — grab it now and finish your quest!"
+    hint_1 = "Egg 1: Every curry, bredie and braai starts at this shop. The meat is not at the 'Bottom', it's at the ___. Find the first egg before your next stop!"
+    hint_2 = "Egg 2: Pencils, pens, glue and a book, the second egg is at this next shop, go have a look!"
+    hint_3 = "Egg 3: Between the books and shelves, the third egg is hinding quietly by itself. Knowledge is free at this place. Reading will put a smile on your face"
+    hint_4 = "Egg 4: Your fourth egg is waitng where the chicken meets the flame and the spice is never tame. Grab a bite and your tongue will never be the same."
+    hint_5 = "Egg 5: I scream, you scream, we all scream for... Your final egg is at the shop where Everyday they do what they do best — grab it now and finish your quest!"
      
     lat1 = LAT_1
     lon1 = LON_1

@@ -24,9 +24,9 @@
 #error-screen,
 #error-email,
 #error-password,
-#error-number,
 #join-screen,
-#number-check
+#number-check,
+#egg-found-overlay
  {
     display: none;
 }
@@ -109,11 +109,13 @@
     overflow: hidden;
 }
 #win-screen {
+    background-image: url("/static/images/celebratebunny.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     height: 100dvh;
-    /* display: flex; */
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+    overflow: hidden;
     position: relative;
 }
 #win-text {
@@ -225,4 +227,68 @@ input {
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     align-items: center;
+}
+#egg-found-overlay {
+    /* display: none; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.egg-found-content {
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.egg-emoji {
+    font-size: 5rem;
+}
+.easter-egg {
+    width: 80px;
+    height: 110px;
+    background: #f06292;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    margin: 0 auto;
+    background: repeating-linear-gradient(
+        0deg,
+        #f06292,
+        #f06292 15px,
+        #ab47bc 15px,
+        #ab47bc 30px,
+        #42a5f5 30px,
+        #42a5f5 45px,
+        #66bb6a 45px,
+        #66bb6a 60px
+    );
+}
+.egg-1 {
+    background: repeating-linear-gradient(0deg, #f06292, #f06292 10px, #ab47bc 10px, #ab47bc 20px);
+}
+.egg-2 {
+    background: repeating-linear-gradient(0deg, #42a5f5, #42a5f5 10px, #1565c0 10px, #1565c0 20px);
+}
+.egg-3 {
+    background: repeating-linear-gradient(0deg, #66bb6a, #66bb6a 10px, #fdd835 10px, #fdd835 20px);
+}
+.egg-4 {
+    background: repeating-linear-gradient(0deg, #ff7043, #ff7043 10px, #ffca28 10px, #ffca28 20px);
+}
+.egg-5 {
+    background: repeating-linear-gradient(0deg, #ab47bc, #ab47bc 10px, #26c6da 10px, #26c6da 20px);
+}
+.egg-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.egg-row .easter-egg {
+    width: 40px;
+    height: 55px;
 }

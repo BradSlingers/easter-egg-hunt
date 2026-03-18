@@ -21,7 +21,7 @@ document.getElementById("submit-join").addEventListener("click", function() {
 
     }
     else {
-            document.getElementById("error-number").style.display  = "block"
+        alert("Phone number must be 10 digits and start with 0")
     }
 })
 
@@ -211,6 +211,7 @@ function success(pos) {
 
         }
         else {
+            showEggFound()
             the_location_element.textContent = data.message
             L.marker([data.egg_lat, data.egg_lon]).addTo(map)
             get_hint()
@@ -233,7 +234,7 @@ function success(pos) {
 }
 
 function error(err) {
-    document.getElementById("the-location").textContent = "GPS: " + err.message + " Try Again"
+    document.getElementById("the-location").textContent = "GPS Problem. Try Again"
     console.log(err.code)
     document.getElementById("location-check").disabled = false;
     document.getElementById("location-check").textContent = "I'm Here!";
@@ -360,6 +361,7 @@ function check_logged_in() {
 
 }
 function load_win_screen() {
+    showEggFound()
     document.getElementById("win-screen").style.display = "flex"
 
 }
@@ -375,4 +377,21 @@ function remove_map_cleanup() {
     get_progress()
 
 }
+function showEggFound() {
+    confetti({
+    particleCount: 150,
+    spread: 180,
+    origin: { x: 0.5, y: 0 },
+    gravity: 0.8,
+    angle:270
+});
 
+    setTimeout(() => {
+        const overlay = document.getElementById("egg-found-overlay");
+        overlay.style.display = "flex";
+
+        setTimeout(() => {
+            overlay.style.display = "none";
+        }, 3000);
+    }, 1500);
+}

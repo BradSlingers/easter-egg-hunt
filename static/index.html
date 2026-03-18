@@ -8,6 +8,7 @@
     <link rel="icon" href="static/images/balloon.png">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   </head>
   <body>
     <div id="welcome-screen">
@@ -17,8 +18,8 @@
     </div>
     <div id="join-screen">
         <h2>Join with your name and phone number</h2>
-        <input type="name" id="join-name" placeholder="Name and Surname">
-        <input type="number" id="join-number" placeholder="Phone Number">
+        <input type="text" id="join-name" placeholder="Name and Surname">
+        <input type="tel" id="join-number" placeholder="Phone Number">
         <button id="submit-join">Submit</button>
         <button id="join-back">Back</button>
     </div>
@@ -44,8 +45,14 @@
         <button id="hunt-back">sign out</button>
     </div>
     <div id="win-screen">
-      <h2 id="win-text"> You Have Found All The Eggs!!!</h1>
-
+      <h2 id="win-text"> You Have Found All The Eggs!!!</h2>
+      <div class="egg-row">
+        <div class="easter-egg egg-1"></div>
+        <div class="easter-egg egg-2"></div>
+        <div class="easter-egg egg-3"></div>
+        <div class="easter-egg egg-4"></div>
+        <div class="easter-egg egg-5"></div>
+      </div>
     </div>
     <div id="instruction-screen">
       <p id="instructions">Join our virtual Easter Egg hunt in Strandfontein Village. Follow the clues to help find your virtual egg. When you think you have found the location, click the red button "Im here". Found your virtual egg? Follow the next hint. When you find the 5 virtual eggs you will be entered into a draw to win R1000! HAPPY HUNTING! 
@@ -54,10 +61,6 @@
     </div>
     <div id="error-email">
       <h2>Please make sure the emails match</h2>
-      <button id="error-email-back">Back</button>
-    </div>
-    <div id="error-number">
-      <h2>Number must be 10 digits and start with 0</h2>
       <button id="error-email-back">Back</button>
     </div>
     <div id="error-password">
@@ -69,6 +72,12 @@
       <p id="the-phonenumber">...</p>
       <button id="correct-number">Yes</button>
       <button id="incorrect-number">No</button>
+    </div>
+    <div id="egg-found-overlay">
+      <div class="egg-found-content">
+        <div class="easter-egg"></div>
+          <p>You found it!</p>
+      </div>
     </div>
     <script src="static/app.js"></script>
   </body>
