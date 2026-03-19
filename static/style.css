@@ -6,15 +6,6 @@
   font-family: "Lobster_Regular";
   src: url("/static/Lobster/Lobster-Regular.ttf");
 }
-/* html {
-    background-image: url("/static/images/welcomescreenbunny.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: hidden;
-} */
 /* #welcome-screen, */
 #signup-screen,
 #login-screen,
@@ -32,7 +23,7 @@
     display: none;
 }
 #welcome-screen {
-    background-image: url("/static/images/welcomescreenbunny.png");
+    background-image: url("/static/default_images/welcomescreenbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -56,7 +47,7 @@
     color: red;
   }
 #signup-screen {
-    background-image: url("/static/images/welcomescreenbunny.png");
+    background-image: url("/static/default_images/welcomescreenbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -71,7 +62,7 @@
     position: relative;
 }
 #login-screen {
-    background-image: url("/static/images/welcomescreenbunny.png");
+    background-image: url("/static/default_images/welcomescreenbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -86,7 +77,7 @@
     position: relative;
 }
 #join-screen {
-    background-image: url("/static/images/welcomescreenbunny.png");
+    background-image: url("/static/default_images/welcomescreenbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -101,7 +92,7 @@
     position: relative;
 }
 #hunt-screen {
-    background-image: url("/static/images/instructionbunny.png");
+    background-image: url("/static/default_images/instructionbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -111,7 +102,7 @@
     position: relative;
 }
 #win-screen {
-    background-image: url("/static/images/celebratebunny.png");
+    background-image: url("/static/default_images/celebratebunny.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -203,7 +194,7 @@ input {
     outline: none;
 }
 #instruction-screen {
-    background-image: url("/static/images/instructionbunny.png");
+    background-image: url("/static/default_images/instructionbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -226,16 +217,6 @@ input {
     left: 50%;
     transform: translateX(-50%);
 }
-/* #number-check{
-    background-image: url("/static/images/instructionbunny.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: hidden;
-    align-items: flex-start;
-} */
 #number-check {
     /* display: none; */
     position: fixed;
@@ -327,7 +308,7 @@ input {
     display: block;
 }
 #final-screen {
-    background-image: url("/static/images/instructionbunny.png");
+    background-image: url("/static/default_images/instructionbunny.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

@@ -1,3 +1,5 @@
+import os
 from sqlalchemy import create_engine
 
-engine = create_engine("sqlite:///eggs.db",echo=True)
+database_path = os.getenv("DATABASE_PATH", "eggs.db")
+engine = create_engine(f"sqlite:///{database_path}", echo=True)
