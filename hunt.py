@@ -81,8 +81,7 @@ def check_location(user_coord:Coordinates,user_phonenum: str = Depends(get_curre
         user_lon = user_coord.longitude
         #Haversine to go here
         haversine_dist = haversine(egg_lat,egg_lon,user_lat,user_lon)
-        if haversine_dist:
-        # if haversine_dist <= 30:
+        if haversine_dist <= 30:
             conn.execute(text("""
                               insert into user_progress(user_id,egg_id,found_at) 
                               values(:user_id,:egg_id,:found_at)
