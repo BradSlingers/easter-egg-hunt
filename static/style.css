@@ -264,6 +264,7 @@ button {
     padding: 10px 10px;
     font-size: 12px;
     width: 40%;
+    margin: 10px auto;
     display: block;
 }
 input {
