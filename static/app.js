@@ -39,8 +39,8 @@ document.getElementById("correct-number").addEventListener("click", function() {
     localStorage.setItem("token", data);
     document.getElementById("number-check").style.display = "none";
     document.getElementById("join-screen").style.display = "none";
-    // document.getElementById("hunt-screen").style.display = "block";
-    document.getElementById("instruction-screen").style.display = "block";
+    // document.getElementById("hunt-screen").style.display = "flex";
+    document.getElementById("instruction-screen").style.display = "flex";
     // Remove map and clean up
     // moved the below code to own function because I show instruction screen first
     //put it in skip click even
@@ -70,7 +70,7 @@ document.getElementById("incorrect-number").addEventListener("click", function()
 document.getElementById("skip-instruction").addEventListener("click", function() {
     // hide login, show welcome
     document.getElementById("instruction-screen").style.display = "none"
-    document.getElementById("hunt-screen").style.display = "block"
+    document.getElementById("hunt-screen").style.display = "flex"
     remove_map_cleanup()
 
 })
@@ -274,7 +274,7 @@ function check_logged_in() {
         // data is what your API returned
         if (data.phonenum) {
             document.getElementById("welcome-screen").style.display = "none";
-            document.getElementById("hunt-screen").style.display = "block";
+            document.getElementById("hunt-screen").style.display = "flex";
             if (map != undefined) {
                 map.off();
                 map.remove();

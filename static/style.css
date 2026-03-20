@@ -3,10 +3,12 @@
     src: url("/static/Press_Start_2P/PressStart2P-Regular.ttf");
 }
 @font-face {
-  font-family: "Lobster_Regular";
-  src: url("/static/Lobster/Lobster-Regular.ttf");
+    font-family: "Lobster_Regular";
+    src: url("/static/Lobster/Lobster-Regular.ttf");
 }
-/* #welcome-screen, */
+
+/* ── HIDE ALL SCREENS BY DEFAULT ── */
+#welcome-screen,
 #signup-screen,
 #login-screen,
 #hunt-screen,
@@ -18,111 +20,199 @@
 #join-screen,
 #number-check,
 #final-screen,
-#egg-found-overlay
- {
+#egg-found-overlay {
     display: none;
 }
+
+/* ── SHARED SCREEN BASE ── */
+#welcome-screen,
+#signup-screen,
+#login-screen,
+#join-screen,
+#hunt-screen,
+#win-screen,
+#instruction-screen,
+#final-screen,
+#error-email,
+#error-password {
+    position: fixed;
+    inset: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
 #welcome-screen {
-    background-image: url("/static/default_images/welcomescreenbunny.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: hidden;
-    height: 100dvh;
-    /* display: flex; */
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: calc(40px + env(safe-area-inset-bottom));
-    position: relative;
+    display: flex;
 }
-#welcome-text {
-    position: absolute;
-    top: 20%;
-    left: 53%;
-    transform: translate(-50%, -50%);
-    font-size: 40px;
-    font-family: "Lobster_Regular";
-    color: red;
-  }
-#signup-screen {
+
+/* ── PER-SCREEN BACKGROUNDS ── */
+#welcome-screen,
+#signup-screen,
+#login-screen,
+#join-screen,
+#error-email,
+#error-password {
     background-image: url("/static/default_images/welcomescreenbunny.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: hidden;
-    height: 100dvh;
-    /* display: flex; */
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: calc(40px + env(safe-area-inset-bottom));
-    position: relative;
 }
-#login-screen {
-    background-image: url("/static/default_images/welcomescreenbunny.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: hidden;
-    height: 100dvh;
-    /* display: flex; */
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: calc(40px + env(safe-area-inset-bottom));
-    position: relative;
-}
-#join-screen {
-    background-image: url("/static/default_images/welcomescreenbunny.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: hidden;
-    height: 100dvh;
-    /* display: flex; */
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: calc(40px + env(safe-area-inset-bottom));
-    position: relative;
-}
-#hunt-screen {
+#hunt-screen,
+#instruction-screen,
+#final-screen {
     background-image: url("/static/default_images/instructionbunny.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
 }
 #win-screen {
     background-image: url("/static/default_images/celebratebunny.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    height: 100dvh;
-    overflow: hidden;
-    position: relative;
-    flex-direction: column;
-    align-items: center;
 }
-#win-text {
-    position: absolute;
-    top: 30%;
-    left: 45%;
-    transform: translate(-50%, -50%);
-    font-size: 60px;
+
+/* ── WELCOME SCREEN ── */
+#welcome-screen {
+    justify-content: flex-start;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+}
+#welcome-text {
+    margin-top: 15%;
+    font-size: 40px;
     font-family: "Lobster_Regular";
     color: red;
-  }
- 
+    text-align: center;
+}
+#goto-join {
+    margin-top: auto;
+    margin-bottom: 80px;
+}
+
+/* ── JOIN SCREEN ── */
+#join-screen {
+    justify-content: flex-start;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+}
+#join-text {
+    margin-top: 5%;
+    font-size: 22px;
+    font-family: "Lobster_Regular";
+    color: red;
+    text-align: center;
+    padding: 0 20px;
+}
+#join-name,
+#join-number {
+    margin-top: 10px;
+}
+#submit-join {
+    margin-top: auto;
+}
+#join-back {
+    margin-bottom: 40px;
+}
+
+/* ── INSTRUCTION SCREEN ── */
+#instruction-screen {
+    justify-content: flex-start;
+    padding: 0 20px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+}
+#instructions {
+    margin-top: 10px;
+}
+#skip-instruction {
+    margin-top: auto;
+    margin-bottom: 40px;
+}
+
+/* ── HUNT SCREEN ── */
+#hunt-screen {
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+#map {
+    height: 300px;
+    width: 100%;
+    flex-shrink: 0;
+}
+#hint-card,
+#progress-card,
+#here-card {
+    width: 100%;
+    text-align: center;
+}
+#hunt-back {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* ── WIN SCREEN ── */
+#win-screen {
+    justify-content: center;
+    gap: 10px;
+}
+#win-text {
+    font-size: 50px;
+    font-family: "Lobster_Regular";
+    color: red;
+    text-align: center;
+    padding: 0 20px;
+}
+#win-next {
+    margin-top: auto;
+    margin-bottom: 50px;
+    background-color: #e30613;
+    color: white;
+    font-family: 'Press_Start_2P';
+    border: none;
+    border-radius: 20px;
+    padding: 10px 10px;
+    font-size: 25px;
+    width: 60%;
+    display: block;
+}
+
+/* ── FINAL SCREEN ── */
+#final-screen {
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+/* ── ERROR SCREENS ── */
+#error-email,
+#error-password {
+    justify-content: center;
+    gap: 15px;
+}
+
+/* ── OVERLAYS ── */
+#number-check {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+#egg-found-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.egg-found-content {
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+}
+.egg-emoji {
+    font-size: 5rem;
+}
+
+/* ── GLOBAL STYLES ── */
 body {
     margin: 0;
     padding: 0;
@@ -130,19 +220,10 @@ body {
     margin: 0 auto;
     font-family: sans-serif;
     overflow: hidden;
+    height: 100dvh;
 }
 p {
-  color: red;
-}
-h2 {
-  font-size: 30px;
-  text-align: center;
-  margin: 0;
-  padding: 20px 0;
-  color: red;
-  text-shadow: 3px 3px 1px white;
-}
-p {
+    color: red;
     border: 2px solid #e30613;
     border-radius: 20px;
     padding: 10px 15px;
@@ -153,23 +234,26 @@ p {
     outline: none;
     background-color: antiquewhite;
 }
+h2 {
+    font-size: 30px;
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+    color: red;
+    text-shadow: 3px 3px 1px white;
+}
 h3 {
-  text-align: center;
-  margin: 0;
-  padding: 20px 0;
-  color: red;
-  text-shadow: 3px 3px 1px white;
-  font-size: 20px;
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+    color: red;
+    text-shadow: 3px 3px 1px white;
+    font-size: 20px;
 }
-
 img {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-}
-#map {
-    height: 300px;
-    width: 100%;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
 }
 button {
     background-color: #e30613;
@@ -178,9 +262,8 @@ button {
     border: none;
     border-radius: 20px;
     padding: 10px 10px;
-    font-size: 25;
+    font-size: 25px;
     width: 40%;
-    margin: 10px auto;
     display: block;
 }
 input {
@@ -193,96 +276,38 @@ input {
     display: block;
     outline: none;
 }
-#instruction-screen {
-    background-image: url("/static/default_images/instructionbunny.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: hidden;
-    align-items: flex-start;
-    position: relative;
+
+/* ── LOGOS ── */
+.screen-logo {
+    width: 400px;
+    max-width: 90%;
+    margin-top: 2px;
+    flex-shrink: 0;
 }
-#instructions {
-    position: absolute;
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
+.screen-logo-bottom {
+    width: 100px;
+    flex-shrink: 0;
 }
 
-#skip-instruction {
-    position: absolute;
-    bottom: 110px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-#number-check {
-    /* display: none; */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
-}
-#egg-found-overlay {
-    /* display: none; */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.egg-found-content {
-    text-align: center;
-    color: white;
-    font-size: 1.5rem;
-}
-
-.egg-emoji {
-    font-size: 5rem;
-}
+/* ── EGGS ── */
 .easter-egg {
     width: 80px;
     height: 110px;
-    background: #f06292;
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     margin: 0 auto;
     background: repeating-linear-gradient(
         0deg,
-        #f06292,
-        #f06292 15px,
-        #ab47bc 15px,
-        #ab47bc 30px,
-        #42a5f5 30px,
-        #42a5f5 45px,
-        #66bb6a 45px,
-        #66bb6a 60px
+        #f06292, #f06292 15px,
+        #ab47bc 15px, #ab47bc 30px,
+        #42a5f5 30px, #42a5f5 45px,
+        #66bb6a 45px, #66bb6a 60px
     );
 }
-.egg-1 {
-    background: repeating-linear-gradient(0deg, #f06292, #f06292 10px, #ab47bc 10px, #ab47bc 20px);
-}
-.egg-2 {
-    background: repeating-linear-gradient(0deg, #e7ecf0, #d5dbdf 10px, #1565c0 10px, #1565c0 20px);
-}
-.egg-3 {
-    background: repeating-linear-gradient(0deg, #66bb6a, #66bb6a 10px, #fdd835 10px, #fdd835 20px);
-}
-.egg-4 {
-    background: repeating-linear-gradient(0deg, #ff7043, #ff7043 10px, #ffca28 10px, #ffca28 20px);
-}
-.egg-5 {
-    background: repeating-linear-gradient(0deg, #ab47bc, #ab47bc 10px, #26c6da 10px, #26c6da 20px);
-}
+.egg-1 { background: repeating-linear-gradient(0deg, #f06292, #f06292 10px, #ab47bc 10px, #ab47bc 20px); }
+.egg-2 { background: repeating-linear-gradient(0deg, #e7ecf0, #d5dbdf 10px, #1565c0 10px, #1565c0 20px); }
+.egg-3 { background: repeating-linear-gradient(0deg, #66bb6a, #66bb6a 10px, #fdd835 10px, #fdd835 20px); }
+.egg-4 { background: repeating-linear-gradient(0deg, #ff7043, #ff7043 10px, #ffca28 10px, #ffca28 20px); }
+.egg-5 { background: repeating-linear-gradient(0deg, #ab47bc, #ab47bc 10px, #26c6da 10px, #26c6da 20px); }
 .egg-row {
     display: flex;
     justify-content: center;
@@ -293,78 +318,4 @@ input {
 .egg-row .easter-egg {
     width: 40px;
     height: 55px;
-}
-#win-next {
-    margin-top: auto;
-    margin-bottom: 50px;
-    background-color: #e30613;
-    color: white;
-    font-family: 'Press_Start_2P';
-    border: none;
-    border-radius: 20px;
-    padding: 10px 10px;
-    font-size: 25;
-    width: 60%;
-    display: block;
-}
-#final-screen {
-    background-image: url("/static/default_images/instructionbunny.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: hidden;
-    flex-direction: column;
-    align-items: center;
-}
-#join-text {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.screen-logo {
-    position: absolute;
-    top: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-}
-.screen-logo-bottom {
-    position: absolute;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-}
-#goto-join {
-    position: absolute;
-    bottom: 150px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-#join-name {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-#join-number {
-    position: absolute;
-    top: 37%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-#submit-join {
-    position: absolute;
-    bottom: 160px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-#join-back {
-    position: absolute;
-    bottom: 110px;
-    left: 50%;
-    transform: translateX(-50%);
 }
