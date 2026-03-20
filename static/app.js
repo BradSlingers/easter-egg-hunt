@@ -35,31 +35,27 @@ document.getElementById("correct-number").addEventListener("click", function() {
     })
     .then(get_token)
     .then(function(data) {
-    // data is what your API returned
-    localStorage.setItem("token", data);
-    document.getElementById("number-check").style.display = "none";
-    document.getElementById("join-screen").style.display = "none";
-    // document.getElementById("hunt-screen").style.display = "flex";
-    document.getElementById("instruction-screen").style.display = "flex";
-    // Remove map and clean up
-    // moved the below code to own function because I show instruction screen first
-    //put it in skip click even
-    // if (map != undefined) {
-    //     map.off();
-    //     map.remove();
-    // }
-
-    // load_map()
-    // reset_hunt_screen()
-    // get_hint()
-    // get_progress()
-
+        localStorage.setItem("token", data);
+        const token = localStorage.getItem("token")
+        return fetch("/hunt/progress", {
+            method: "GET",
+            headers: {'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'}
+        })
+        .then(get_res)
+        .then(progressData => {
+            document.getElementById("number-check").style.display = "none"
+            document.getElementById("join-screen").style.display = "none"
+            if (progressData.complete === true) {
+                document.getElementById("final-screen").style.display = "flex"
+            } else {
+                document.getElementById("instruction-screen").style.display = "flex"
+            }
+        })
     }).catch(err => {
         alert(err.detail)
-        }) 
-
+    })
 })
-
 document.getElementById("incorrect-number").addEventListener("click", function() {
     document.getElementById("number-check").style.display = "none"
     document.getElementById("join-screen").style.display = "flex"
@@ -88,7 +84,7 @@ document.getElementById("hunt-back").addEventListener("click", function() {
 document.getElementById("final-signout").addEventListener("click", function() {
     // hide hunt, show welcome
     localStorage.removeItem("token")
-    document.getElementById("hunt-screen").style.display = "none"
+    document.getElementById("final-screen").style.display = "none"
     document.getElementById("welcome-screen").style.display = "flex"
 })
 
@@ -165,7 +161,7 @@ function success(pos) {
     }
     else {
         the_location_element.textContent = data.message
-        // the_location_element.textContent = data.message + " "+ data.haversine
+        the_location_element.textContent = data.message + " "+ data.haversine
     }
         }).catch(err => {
             alert(err.detail)
@@ -273,16 +269,41 @@ function check_logged_in() {
         .then(data => {
         // data is what your API returned
         if (data.phonenum) {
-            document.getElementById("welcome-screen").style.display = "none";
-            document.getElementById("hunt-screen").style.display = "flex";
-            if (map != undefined) {
-                map.off();
-                map.remove();
-            }
-            load_map()
-            reset_hunt_screen()
-            get_hint()
-            get_progress()
+                console.log("progress response:", data)
+            return fetch("/hunt/progress", {
+                method: "GET",
+                headers: {'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+            })
+            .then(get_res)
+            .then(progress_data => {
+                console.log("progress response:", progress_data)
+                if (progress_data.complete === true) {
+                    document.getElementById("welcome-screen").style.display = "none";
+                    document.getElementById("final-screen").style.display = "flex";
+
+                }
+                else {
+                    document.getElementById("welcome-screen").style.display = "none";
+                    document.getElementById("hunt-screen").style.display = "flex";
+                    if (map != undefined) {
+                        map.off();
+                        map.remove();
+                    }
+                    load_map()
+                    reset_hunt_screen()
+                    get_hint()
+                    get_progress()
+                }
+
+            // }).catch(err => {
+            //     alert(err.detail)
+            //     }) 
+            }).catch(err => {
+                console.log("progress error:", err)
+                alert(JSON.stringify(err))
+            })
         }
         else {
             document.getElementById("welcome-screen").style.display = "flex";
