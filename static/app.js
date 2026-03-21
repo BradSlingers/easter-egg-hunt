@@ -210,41 +210,39 @@ function get_hint() {
 }
 
 function get_progress() {
-
     const token = localStorage.getItem("token");
     fetch("/hunt/progress", {
         method: "GET",
         headers: {'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json'}
     })
     .then(get_res)
     .then(data => {
-    // data is what your API returned
-    const the_progress_element = document.getElementById("the-progress");
-    the_progress_element.textContent = data.message
-    //gets a list of dictionarys of the egg coords already found
-    //this is to update the map with markers when a person signs in and out
-    if (data.egg_coords) {
-        for (const coord of data.egg_coords) {
-            L.marker([coord["lat"], coord["lon"]]).addTo(map)
-
+        // reset all eggs to greyed out first
+        for (let i = 1; i <= 5; i++) {
+            document.getElementById("hunt-egg-" + i).classList.add("unfound-egg")
         }
-
-    }
-
-    console.log(data.message)
-
+        // colour in found eggs
+        for (const eggOrder of data.found_eggs) {
+            document.getElementById("hunt-egg-" + eggOrder).classList.remove("unfound-egg")
+        }
+        // map markers for found eggs
+        if (data.egg_coords) {
+            for (const coord of data.egg_coords) {
+                L.marker([coord["lat"], coord["lon"]]).addTo(map)
+            }
+        }
     }).catch(err => {
         alert(err.detail)
-        }) 
-
+    })
 }
 
 function reset_hunt_screen() {
-    document.getElementById("the-progress").textContent = "";
     document.getElementById("the-hint").textContent = "";
     document.getElementById("the-location").textContent = "";
+    for (let i = 1; i <= 5; i++) {
+        document.getElementById("hunt-egg-" + i).classList.add("unfound-egg")
+    }
 }
 
 function load_map() {

@@ -81,8 +81,7 @@ def check_location(user_coord:Coordinates,user_phonenum: str = Depends(get_curre
         user_lon = user_coord.longitude
         #Haversine to go here
         haversine_dist = haversine(egg_lat,egg_lon,user_lat,user_lon)
-        if haversine_dist:
-        # if haversine_dist <= 30:
+        if haversine_dist <= 30:
             conn.execute(text("""
                               insert into user_progress(user_id,egg_id,found_at) 
                               values(:user_id,:egg_id,:found_at)
@@ -121,12 +120,12 @@ def get_progress(user_phonenum: str = Depends(get_current_user)):
                                     where user_id = :id)"""),{"id":user_id})
         row_actual = row_cursor.fetchall()
         if not row_actual:
-            return {"message":"...","complete":False}
+            return {"message":"...","complete":False,"found_eggs":found_egg_list}
         for r in row_actual:
             found_egg_list.append(r[0])
             egg_coords.append({"lat":r[1],"lon":r[2]})
         number_of_eggs = len(row_actual)
         total = conn.execute(text("SELECT COUNT(*) FROM eggs")).fetchone()[0]
         if number_of_eggs == total:
-            return {"message":"You have found all the Eggs!","egg_coords":egg_coords,"complete":True}
-        return {"message":f"Found {number_of_eggs}/{total} eggs. The eggs are {found_egg_list}","egg_coords":egg_coords,"complete":False}
+            return {"message":"You have found all the Eggs!","egg_coords":egg_coords,"complete":True,"found_eggs":found_egg_list}
+        return {"message":f"Found {number_of_eggs}/{total} eggs. The eggs are {found_egg_list}","egg_coords":egg_coords,"complete":False,"found_eggs":found_egg_list}

@@ -173,7 +173,7 @@
 
 /* ── FINAL SCREEN ── */
 #final-screen {
-    justify-content: center;
+    justify-content: flex-start;
     gap: 10px;
     padding: 0 20px;
 }
@@ -319,4 +319,14 @@ input {
 .egg-row .easter-egg {
     width: 40px;
     height: 55px;
+}
+.unfound-egg {
+    opacity: 0.3;
+    filter: grayscale(100%);
+}
+#hunt-egg-row {
+    margin-top: 10px;
+}
+#claim-egg {
+    margin-top: 20px;
 }
