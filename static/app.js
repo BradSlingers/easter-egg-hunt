@@ -105,7 +105,7 @@ document.getElementById("location-check").addEventListener("click", function() {
     document.getElementById("location-check").disabled = true;
     document.getElementById("location-check").textContent = "Checking...";
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success,error,{timeout:10000});
+        navigator.geolocation.getCurrentPosition(success,error,{enableHighAccuracy: true, maximumAge: 0, timeout: 10000});
     }
     else {
         document.getElementById("the-location").textContent = "Your browser doesn't support GPS."
